@@ -1,4 +1,4 @@
-import { TReviews } from '../components/const';
+import { TReviews } from '../components/tconst';
 
 const reviwes: TReviews = [
   {
