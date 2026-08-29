@@ -1,5 +1,6 @@
 import TLocation from './locations-types';
 
+
 function Locations({ }: TLocation): JSX.Element {
   return (
     <ul className="locations__list tabs__list">

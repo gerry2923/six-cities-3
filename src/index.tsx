@@ -3,17 +3,20 @@ import App from './components/app/app';
 import React from 'react';
 
 import { offers } from './mocks/offers';
+import { AutorizationStatus } from './components/const';
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
 );
 
-const email: string = 'Oliver.conner@gmail.com';
-const favoritesCount: number = 5;
+const authorizationStatus = AutorizationStatus.Auth;
+// const email: string = 'Oliver.conner@gmail.com';
+// const favoritesCount: number = 5;
 
 root.render(
   <React.StrictMode>
-    <App userEmail={email} favoritesCount={favoritesCount} places={[...offers]} />
+    {/* <App userEmail={email} favoritesCount={favoritesCount} places={[...offers]} /> */}
+    <App offers={offers} authorizationStatus={authorizationStatus} />
   </React.StrictMode>
 
 

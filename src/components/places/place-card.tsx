@@ -1,8 +1,17 @@
-import { TPlaceCard } from './places-list-types';
+import { useState } from 'react';
+import { TOffer } from '../tconst';
 
-function PlaceCard(place : TPlaceCard): JSX.Element {
+
+function PlaceCard(place : TOffer): JSX.Element {
+  const [activePlace, setState] = useState(place);
+
+  const handleMouseOver = () => {
+    setState();
+  };
+
+
   return (
-    <article className="cities__card place-card">
+    <article className="cities__card place-card" onMouseOver={handleMouseOver}>
       <div className="cities__image-wrapper place-card__image-wrapper">
         <a href="#">
           <img

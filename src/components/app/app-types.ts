@@ -1,9 +1,9 @@
-import { TPlaces } from '../places/places-list-types';
+import { AutorizationStatus } from '../const';
+import { TOffer } from '../tconst';
 
 type TApp = {
-  userEmail: string;
-  favoritesCount: number;
-  places: TPlaces;
+  authorizationStatus: AutorizationStatus;
+  offers: TOffer[];
 }
 
 
