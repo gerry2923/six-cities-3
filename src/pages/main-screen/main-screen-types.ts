@@ -1,9 +1,9 @@
-import { TPlaces } from '../../components/places/places-list-types';
+import { TOffers} from '../../components/offer/offer-list-types';
 
 type TMain = {
   userEmail: string;
   favoritesCount: number;
-  places: TPlaces;
+  places: TOffers;
 }
 
 

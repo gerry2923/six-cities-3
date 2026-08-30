@@ -1,22 +1,14 @@
-import { useState } from 'react';
 import { TOffer } from '../tconst';
 
-
-function PlaceCard(place : TOffer): JSX.Element {
-  const [activePlace, setState] = useState(place);
-
-  const handleMouseOver = () => {
-    setState();
-  };
-
-
+function OfferCard(offer : TOffer) {
+  const rating = `${(offer.rating * 100 / 5).toString()}%`;
   return (
-    <article className="cities__card place-card" onMouseOver={handleMouseOver}>
+    <article className="cities__card place-card">
       <div className="cities__image-wrapper place-card__image-wrapper">
         <a href="#">
           <img
             className="place-card__image"
-            src={place.previewImage}
+            src={offer.previewImage}
             width={260}
             height={200}
             alt="Place image"
@@ -26,36 +18,31 @@ function PlaceCard(place : TOffer): JSX.Element {
       <div className="place-card__info">
         <div className="place-card__price-wrapper">
           <div className="place-card__price">
-            <b className="place-card__price-value">€{place.price}</b>
+            <b className="place-card__price-value">€{offer.price}</b>
             <span className="place-card__price-text">/&nbsp;night</span>
           </div>
-          <button
-            className="place-card__bookmark-button place-card__bookmark-button--active button"
-            type="button"
-          >
-            <svg
-              className="place-card__bookmark-icon"
-              width={18}
-              height={19}
-            >
+          <button className="place-card__bookmark-button button" type="button">
+            <svg className="place-card__bookmark-icon" width={18} height={19}>
               <use xlinkHref="#icon-bookmark" />
             </svg>
-            <span className="visually-hidden">In bookmarks</span>
+            <span className="visually-hidden">To bookmarks</span>
           </button>
         </div>
         <div className="place-card__rating rating">
           <div className="place-card__stars rating__stars">
-            <span style={{ width: '80%' }} />
+            <span style={{ width: rating }} />
             <span className="visually-hidden">Rating</span>
           </div>
         </div>
         <h2 className="place-card__name">
-          <a href="#">Wood and stone place</a>
+          <a href="#">offer.city.name</a>
         </h2>
-        <p className="place-card__type">Room</p>
+        <p className="place-card__type">offer.type</p>
       </div>
     </article>
+
   );
 }
 
-export default PlaceCard;
+
+export default OfferCard;

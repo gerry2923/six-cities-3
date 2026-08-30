@@ -1,6 +1,6 @@
 import { Fragment } from 'react';
 import { Helmet } from 'react-helmet-async';
-import { Navigate, useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import Header from '../../components/header/header';
 import { TOffer } from '../../components/tconst';
 import { AutorizationStatus } from '../../components/const';
@@ -36,13 +36,16 @@ type TOfferScreen = {
 
 
 // отрисуй offer
+// смотрим, авторизированный пользователь или нет + проверяем по id есть ли такое предложение или нет
 function OfferScreen({ offers, autorizationStatus }: TOfferScreen) {
   const {id} = useParams();
   // eslint-disable-next-line no-console
   const currentOffer: TOffer | undefined = offers.find((offer : TOffer) => offer.id === id);
 
   if(!currentOffer) {
-    return <NotFound type={offer}/>;
+    // фокус с типами
+    // return <NotFound type={offer}/>;
+    return <NotFound />;
   }
 
 
@@ -51,12 +54,13 @@ function OfferScreen({ offers, autorizationStatus }: TOfferScreen) {
       <Helmet>
         <title>Предложение</title>
       </Helmet>
+
       <Header userEmail={'oliver@mail.ru'} favoritesCount={0} />
       <main className="page__main page__main--offer">
         <section className="offer">
           <div className="offer__gallery-container container">
             <div className="offer__gallery">
-              <OfferImages images={offer.images} />
+              <OfferImages images={currentOffer.images} />
             </div>
           </div>
           <div className="offer__container container">

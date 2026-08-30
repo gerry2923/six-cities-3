@@ -1,9 +1,9 @@
+import { Helmet } from 'react-helmet-async';
 import Header from '../../components/header/header';
 import Locations from '../../components/locations/locations';
-import Places from '../../components/places/places';
-import { Helmet } from 'react-helmet-async';
-
+import OfferList from '../../components/offer/offer-list';
 import type TMain from './main-screen-types';
+
 
 function MainScreen({ userEmail, favoritesCount, places = [] }: TMain): JSX.Element {
   return (
@@ -23,7 +23,7 @@ function MainScreen({ userEmail, favoritesCount, places = [] }: TMain): JSX.Elem
         <div className="cities">
           <div className="cities__places-container container">
             <section className="cities__places places">
-              <Places places={[...places]} />
+              <OfferList offers={[...places]} />
             </section>
 
             <div className="cities__right-section">
