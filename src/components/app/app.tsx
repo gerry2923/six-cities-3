@@ -21,6 +21,7 @@ function App({
     <HelmetProvider>
       <BrowserRouter>
         <Routes>
+
           <Route path={AppRoute.Main}
             element={
               <MainScreen
@@ -46,7 +47,7 @@ function App({
             element={<OfferScreen offers={offers} reviews={reviews} autorizationStatus={authorizationStatus}/>}
           />
 
-          <Route path='*' element={<NotFound />} />
+          <Route path='*' element={<NotFound type={'page'}/>} />
         </Routes>
       </BrowserRouter>
     </HelmetProvider>

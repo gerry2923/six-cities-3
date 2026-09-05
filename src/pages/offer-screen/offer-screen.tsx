@@ -84,7 +84,7 @@ function OfferScreen({ offers, reviews, autorizationStatus }: TOfferScreen) {
   if (!currentOffer) {
     // фокус с типами
     // return <NotFound type={offer}/>;
-    return <NotFound />;
+    return <NotFound type='offer'/>;
   }
 
   const isAuth = autorizationStatus === AutorizationStatus.Auth;
@@ -183,7 +183,6 @@ function OfferScreen({ offers, reviews, autorizationStatus }: TOfferScreen) {
                   Reviews · <span className="reviews__amount">{currentOfferReviews.length}</span>
                 </h2>
                 <Reviews reviews={currentOfferReviews}/>
-
                 {isAuth && <ReviewForm />}
               </section>
             </div>

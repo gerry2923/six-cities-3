@@ -8,7 +8,6 @@ import Sorting from '../../components/sorting/sorting';
 
 function MainScreen({ userEmail, favoritesCount, places = [] }: TMain): JSX.Element {
   return (
-
     <div className="page page--gray page--main">
       <Helmet>
         <title>Основной экран</title>

@@ -3,7 +3,16 @@ import { Link } from 'react-router-dom';
 import { AppRoute } from '../const';
 import { Helmet } from 'react-helmet-async';
 
-function NotFound() {
+const variants = {
+  page: {text: 'Page Not Found', o: '😣'},
+  offer: {text: 'We have no offers with that ID', o: '🤯'}
+};
+
+type TNotFoundProps = {
+  type: keyof typeof variants;
+}
+
+function NotFound({type}: TNotFoundProps) :JSX.Element {
   return (
     <Fragment>
       <Helmet>
@@ -12,15 +21,16 @@ function NotFound() {
       <h1 style={{
         width: 'fit-content',
         height: 'min-content',
-        margin: '10px auto 40px',
+        margin: '70px auto 40px',
         fontSize: '56px',
-        fontWeight: 'bold'
+        fontWeight: 'bold',
+        textAlign: 'center',
       }}
-      >404.<br />
+      >{`4${variants[type].o}4.`}<br />
         <small style={{
           margin: '0 auto',
         }}
-        >Page Not Found
+        >{`Oooops! ${variants[type].text}`}
         </small>
       </h1>
 
@@ -30,7 +40,8 @@ function NotFound() {
           display: 'block',
           margin: '0 auto',
           fontSize: '32px',
-          textDecoration: 'underline'
+          textDecoration: 'underline',
+          color: '#000066',
         }}
       >
         go to main page

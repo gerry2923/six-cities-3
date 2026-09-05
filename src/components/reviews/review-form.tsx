@@ -1,4 +1,4 @@
-import { Fragment } from 'react';
+import { Fragment, ReactEventHandler, useState } from 'react';
 
 const rating = [
   {value: 5, label: 'perfect'},
@@ -8,7 +8,17 @@ const rating = [
   {value: 1, label: 'terribly'},
 ];
 
+type TFeedbackChangeHandler = ReactEventHandler<HTMLInputElement | HTMLTextAreaElement>;
+
+
 function ReviewForm() {
+
+  const [review, setReview] = useState({rating: 0, review: ''});
+
+  const HandleFeedbackChange : TFeedbackChangeHandler = (event) => {
+    const {name, value} = event.currentTarget;
+    setReview({...review, [name]: value});
+  };
   return (
     <form className='reviews__form form' action='#' method='post'>
       <label className='reviews__label form__label' htmlFor='review'>
@@ -20,6 +30,7 @@ function ReviewForm() {
             <input
               className='form__rating-input visually-hidden'
               name='rating'
+              onChange={HandleFeedbackChange}
               defaultValue={5}
               id={`${value}-stars`}
               type='radio'
@@ -41,6 +52,7 @@ function ReviewForm() {
         className='reviews__textarea form__textarea'
         id='review'
         name='review'
+        onChange={HandleFeedbackChange}
         placeholder='Tell how was your stay, what you like and what can be improved'
         defaultValue={''}
       />
@@ -55,7 +67,7 @@ function ReviewForm() {
         <button
           className='reviews__submit form__submit button'
           type='submit'
-          disabled
+          disabled={review.review.length < 50 || review.rating === 0}
         >
           Submit
         </button>
