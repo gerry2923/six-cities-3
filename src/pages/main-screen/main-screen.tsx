@@ -3,6 +3,7 @@ import Header from '../../components/header/header';
 import Locations from '../../components/locations/locations';
 import OfferList from '../../components/offer/offer-list';
 import type TMain from './main-screen-types';
+import Sorting from '../../components/sorting/sorting';
 
 
 function MainScreen({ userEmail, favoritesCount, places = [] }: TMain): JSX.Element {
@@ -21,15 +22,22 @@ function MainScreen({ userEmail, favoritesCount, places = [] }: TMain): JSX.Elem
           </section>
         </div>
         <div className="cities">
+
           <div className="cities__places-container container">
             <section className="cities__places places">
-              <OfferList offers={[...places]} />
+              <h2 className="visually-hidden">Places</h2>
+              <b className="places__found">312 places to stay in Mamsterdam</b>
+              <Sorting />
+              <div className="cities__places-list places__list tabs__content">
+                <OfferList offers={[...places]} />
+              </div>
             </section>
 
             <div className="cities__right-section">
               <section className="cities__map map" />
             </div>
           </div>
+
         </div>
       </main>
     </div>

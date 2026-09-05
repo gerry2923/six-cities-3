@@ -9,6 +9,7 @@ export type TUser = {
 
 export type TReview = {
   id: string;
+  offerId: string;
   date: string;
   user: TUser;
   comment: string;

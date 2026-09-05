@@ -4,6 +4,7 @@ import React from 'react';
 
 import { offers } from './mocks/offers';
 import { AutorizationStatus } from './components/const';
+import { reviews } from './mocks/reviews';
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
@@ -16,7 +17,7 @@ const authorizationStatus = AutorizationStatus.Auth;
 root.render(
   <React.StrictMode>
     {/* <App userEmail={email} favoritesCount={favoritesCount} places={[...offers]} /> */}
-    <App offers={offers} authorizationStatus={authorizationStatus} />
+    <App offers={offers} reviews={reviews} authorizationStatus={authorizationStatus} />
   </React.StrictMode>
 
 
