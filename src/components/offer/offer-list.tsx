@@ -5,15 +5,22 @@ import { TOffer } from '../tconst';
 import { Nullable } from 'vitest';
 
 
-function OfferList({ offers }: TOffersList): JSX.Element {
+function OfferList({ offers, onActiveOfferChange }: TOffersList): JSX.Element {
 
   const [activeOffer, setActiveOffer] = useState<Nullable<TOffer>>(null);
+  
+  // тут ставим активный оффер ->  его надо передать в main screen чтобы обновить карту
   const handleHover = (offer? : TOffer) => {
     setActiveOffer(offer || null);
+    onActiveOfferChange(offer || null);
   };
-  // выполняется только тогда, когда обновляется компонент. Мы указали, что обновляться должен offers, поэтому обновления консоль будет запускаться, когда будет обновляться offers
+
+
+  // выполняется только тогда, когда обновляется компонент. Мы указали, что обновляться должен offers, поэтому обновления консоль будет запускаться, когда будет обновляться offers \
+  // тут нет необходимости в useEffect!!!!! 
   useEffect(() => {
     console.log(`активное предолжение ${activeOffer?.id}`);
+    // TODO: применить стили к карте предложения
   }, [offers , activeOffer]);
 
   return (

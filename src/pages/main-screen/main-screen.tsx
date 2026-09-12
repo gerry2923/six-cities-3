@@ -6,6 +6,7 @@ import type TMain from './main-screen-types';
 import Sorting from '../../components/sorting/sorting';
 import Map from '../../components/map/map';
 import { useState } from 'react';
+import { TOffer } from '../../components/tconst';
 
 
 /**
@@ -19,19 +20,31 @@ import { useState } from 'react';
 function MainScreen({ userEmail, favoritesCount, defaultCity, places = [] }: TMain): JSX.Element {
   // activeCity - город, выбранный в шапке меню -> перерисовывает карту и карточки
   const [activeCity, setActiveCity] = useState<string>(defaultCity);
-  // activeLocation - активная карта, т.е. на которую навели курсор мышки -> меняет внешний вид карты и пин на карте становится другого цвета. ???? как сделать пин другой???
-  const [activeLocation, setActiveLocation] = useState();
-  const activeOfferId = '1';
+
+
+  // activeLocation - активная карта, т.е. на которую навели курсор мышки -> меняет внешний вид карты и пин на карте становится другого цвета. ???? как сделать пин, другой установка правильного src???
+  const [activeLocation, setActiveLocation] = useState<TOffer | undefined>();
+  const [activeOfferId, setActiveOfferId] = useState<string | null>(null);
+
+
   // Вычисляем активный город и отфильтрованные предложения на основе activeCity
   const activeCityLocation = places.find((place) => place.city.name === activeCity)?.city;
   const filteredPlaces = places.filter((place) => place.city.name === activeCity);
   const allCities = Array.from(new Set(places.map((place) => place.city.name)));
 
-  const handleLocationClick = (cityName: string): void => {
+  //?? где обновлять activeCityLocation? 
+  const handleActiveCityClick = (cityName: string): void => {
     if (cityName) {
       setActiveCity(cityName);
     }
   };
+
+  const handleActivCardClick = (offer: TOffer): void => {
+    if(offer) {
+      setActiveLocation(offer);
+      setActiveOfferId(offer.id);
+    }
+  }
 
   return (
     <div className="page page--gray page--main">
@@ -46,7 +59,7 @@ function MainScreen({ userEmail, favoritesCount, defaultCity, places = [] }: TMa
             <LocationNavigation
               activeCity={activeCity}
               cityNames={allCities}
-              onLocationClick={handleLocationClick}
+              onLocationClick={handleActiveCityClick}
             />
           </section>
         </div>
@@ -59,7 +72,7 @@ function MainScreen({ userEmail, favoritesCount, defaultCity, places = [] }: TMa
               </b>
               <Sorting />
               <div className="cities__places-list places__list tabs__content">
-                <OfferList offers={filteredPlaces} />
+                <OfferList offers={filteredPlaces} onActiveOfferChange={handleActivCardClick}/>
               </div>
             </section>
 
