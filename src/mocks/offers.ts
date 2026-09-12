@@ -1,50 +1,4 @@
 export const offers = [
-  // {
-  //   // id: 'c85228b2-37c8-4b46-a38c-e0296f852c30',
-  //   id: '1',
-  //   title: 'The Joshua Tree House',
-  //   type: 'apartment' as const,
-  //   price: 225,
-  //   previewImage: 'https://15.design.htmlacademy.pro/static/hotel/18.jpg',
-  //   city: {
-  //     name: 'Amsterdam',
-  //     location: {
-  //       latitude: 52.3676,
-  //       longitude: 4.9041,
-  //       zoom: 13
-  //     }
-  //   },
-  //   location: {
-  //     latitude: 52.3746,
-  //     longitude: 4.8952,
-  //     zoom: 16
-  //   },
-  //   isFavorite: false,
-  //   isPremium: false,
-  //   rating: 4.5,
-  //   description: 'Уютный апартамент в центре Парижа с прекрасным видом на город и современным ремонтом.',
-  //   bedrooms: 2,
-  //   goods: [
-  //     'Wi-Fi',
-  //     'Washing machine',
-  //     'Heating',
-  //     'Kitchen',
-  //     'Air conditioning'
-  //   ],
-  //   host: {
-  //     name: 'Marie Dubois',
-  //     avatarUrl: 'https://loremflickr.com/54/54?random=1',
-  //     isPro: true
-  //   },
-  //   images: [
-  //     'https://loremflickr.com/260/200/apartment?random=845',
-  //     'https://loremflickr.com/260/200/apartment?random=846',
-  //     'https://loremflickr.com/260/200/apartment?random=847',
-  //     'https://loremflickr.com/260/200/apartment?random=848'
-  //   ],
-  //   maxAdults: 4
-  // },
-  /** */
   {
     id: '1',
     title: 'The Joshua Tree House',
@@ -54,8 +8,8 @@ export const offers = [
     city: {
       name: 'Amsterdam',
       location: {
-        latitude: 52.3909553943508,
-        longitude: 4.85309666406198,
+        latitude: 52.3676,
+        longitude: 4.9041,
         zoom: 13
       }
     },
@@ -98,8 +52,8 @@ export const offers = [
     city: {
       name: 'Amsterdam',
       location: {
-        latitude: 52.3609553943508,
-        longitude: 4.85309666406198,
+        latitude: 52.3676,
+        longitude: 4.9041,
         zoom: 13
       }
     },
@@ -144,8 +98,8 @@ export const offers = [
     city: {
       name: 'Amsterdam',
       location: {
-        latitude: 52.3909553943508,
-        longitude: 4.929309666406198,
+        latitude: 52.3676,
+        longitude: 4.9041,
         zoom: 13
       }
     },
@@ -185,12 +139,11 @@ export const offers = [
     type: 'hotel' as const,
     price: 580,
     previewImage: 'https://15.design.htmlacademy.pro/static/hotel/4.jpg',
-    // previewImage:'https://moqimg.ru/260x200.png',
     city: {
       name: 'Amsterdam',
       location: {
-        latitude: 52.3809553943508,
-        longitude: 4.939309666406198,
+        latitude: 52.3676,
+        longitude: 4.9041,
         zoom: 13
       }
     },
@@ -238,8 +191,8 @@ export const offers = [
     city: {
       name: 'Amsterdam',
       location: {
-        latitude: 52.3909553943508,
-        longitude: 4.85309666406198,
+        latitude: 52.3676,
+        longitude: 4.9041,
         zoom: 13
       }
     },
@@ -277,9 +230,7 @@ export const offers = [
     ],
     maxAdults: 5
   },
-  /** -------------- */
   {
-    // id: '45110842-c625-4ce9-83da-1300955127be',
     id: '6',
     title: 'House in countryside',
     type: 'room' as const,
@@ -325,7 +276,6 @@ export const offers = [
     maxAdults: 2
   },
   {
-    // id: '0b5a8c41-ff38-455c-8df0-f9afcf09c3d9',
     id: '7',
     title: 'The Joshua Tree House',
     type: 'hotel' as const,
@@ -374,57 +324,6 @@ export const offers = [
     ],
     maxAdults: 6
   },
-  // {
-  //   // id: 'd948acd2-d5f5-4dd6-9072-550fcd7887eb',
-  //   id: '8',
-  //   title: 'Loft Studio in the Central Area',
-  //   type: 'house' as const,
-  //   price: 770,
-  //   previewImage: 'https://15.design.htmlacademy.pro/static/hotel/4.jpg',
-  //   city: {
-  //     name: 'Paris',
-  //     location: {
-  //       latitude: 48.8566,
-  //       longitude: 2.3522,
-  //       zoom: 13
-  //     }
-  //   },
-  //   location: {
-  //     latitude: 48.8626,
-  //     longitude: 2.3466,
-  //     zoom: 16
-  //   },
-  //   isFavorite: false,
-  //   isPremium: false,
-  //   rating: 3.2,
-  //   description: 'Просторная лофт-студия в центральной части Парижа с высокими потолками и большими окнами.',
-  //   bedrooms: 2,
-  //   goods: [
-  //     'Wi-Fi',
-  //     'Kitchen',
-  //     'Washing machine',
-  //     'Heating',
-  //     'Coffee machine',
-  //     'Fridge',
-  //     'Parking'
-  //   ],
-  //   host: {
-  //     name: 'Sophie Renard',
-  //     avatarUrl: 'https://loremflickr.com/54/54?random=4',
-  //     isPro: false
-  //   },
-  //   images: [
-  //     'https://loremflickr.com/260/200/apartment?random=860',
-  //     'https://loremflickr.com/260/200/apartment?random=861',
-  //     'https://loremflickr.com/260/200/apartment?random=862',
-  //     'https://loremflickr.com/260/200/apartment?random=863',
-  //     'https://loremflickr.com/260/200/apartment?random=864',
-  //     'https://loremflickr.com/260/200/apartment?random=865',
-  //     'https://loremflickr.com/260/200/apartment?random=866',
-  //     'https://loremflickr.com/260/200/apartment?random=867'
-  //   ],
-  //   maxAdults: 5
-  // }
   {
     id: '8',
     title: 'Loft Studio in the Central Area',
@@ -484,8 +383,8 @@ export const offers = [
     city: {
       name: 'Paris',
       location: {
-        latitude: 48.8597,
-        longitude: 2.3627,
+        latitude: 48.8566,
+        longitude: 2.3522,
         zoom: 13
       }
     },
@@ -531,8 +430,8 @@ export const offers = [
     city: {
       name: 'Paris',
       location: {
-        latitude: 48.8470,
-        longitude: 2.3456,
+        latitude: 48.8566,
+        longitude: 2.3522,
         zoom: 13
       }
     },
@@ -575,8 +474,8 @@ export const offers = [
     city: {
       name: 'Paris',
       location: {
-        latitude: 48.8699,
-        longitude: 2.3077,
+        latitude: 48.8566,
+        longitude: 2.3522,
         zoom: 13
       }
     },
@@ -624,8 +523,8 @@ export const offers = [
     city: {
       name: 'Paris',
       location: {
-        latitude: 48.8867,
-        longitude: 2.3431,
+        latitude: 48.8566,
+        longitude: 2.3522,
         zoom: 13
       }
     },

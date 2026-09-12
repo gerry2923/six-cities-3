@@ -4,20 +4,22 @@ import { AppRoute } from '../const';
 
 type TOfferCard = {
   offer: TOffer;
-  onHover: (offer?: TOffer) => void;
+  onOfferHover: (offer?: TOffer) => void;
 }
 
 
-function OfferCard({ offer, onHover }: TOfferCard) {
+function OfferCard({ offer, onOfferHover }: TOfferCard) {
 
 
   const route = `${AppRoute.Offer.slice(0, -2)}${offer.id}`;
-  const handleMouseOn = () => {
-    onHover(offer);
+
+  const handleMouseOver = () => {
+    // передаем оффер этой карты
+    onOfferHover(offer);
   };
 
-  const handleMouseOff = () => {
-    onHover();
+  const handleMouseLeave = () => {
+    onOfferHover();
   };
 
   const rating = `${(offer.rating * 100 / 5).toString()}%`;
@@ -36,8 +38,8 @@ function OfferCard({ offer, onHover }: TOfferCard) {
     <Link to={route} >
       <article
         className="cities__card place-card"
-        onMouseOver={handleMouseOn}
-        onMouseLeave={handleMouseOff}
+        onMouseOver={handleMouseOver}
+        onMouseLeave={handleMouseLeave}
       >
         {premium}
         <div className="cities__image-wrapper place-card__image-wrapper">

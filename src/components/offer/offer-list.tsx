@@ -22,7 +22,7 @@ function OfferList({ offers }: TOffersList): JSX.Element {
         <OfferCard
           key={offer.id}
           offer={offer}
-          onHover={handleHover}
+          onOfferHover={handleHover}
         />
       ))}
     </>

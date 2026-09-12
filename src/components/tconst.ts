@@ -18,23 +18,23 @@ export type TReview = {
 
 export type TReviews = TReview[];
 
-type THost = {
+export type THost = {
   name: string;
   avatarUrl: TUrl;
   isPro: boolean;
 }
-type TLocation = {
+export type TLocation = {
   latitude: number;
   longitude: number;
   zoom: number;
 };
 
-type TCity = {
+export type TCity = {
   name: string;
   location: TLocation;
 };
 
-type OfferType = 'apartment' | 'house' | 'room' | 'hotel';
+export type OfferType = 'apartment' | 'house' | 'room' | 'hotel';
 
 export type TOffer = {
   id: string;

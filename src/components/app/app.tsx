@@ -12,9 +12,10 @@ import OfferScreen from '../../pages/offer-screen/offer-screen';
 
 
 function App({
+  defaultCity,
+  authorizationStatus,
   offers,
   reviews,
-  authorizationStatus
 }: TApp): JSX.Element {
 
   return (
@@ -27,6 +28,7 @@ function App({
               <MainScreen
                 userEmail={'Oliver@gmail.com'}
                 favoritesCount={8}
+                defaultCity={defaultCity}
                 places={offers}
               />
             }
