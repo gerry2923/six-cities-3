@@ -6,7 +6,7 @@ import { TReviews } from '../components/tconst';
 //     date: '2019-05-08T14:13:56.569Z',
 //     user: {
 //       name: 'Oliver Conner',
-//       avatarUrl: 'https://loremflickr.com/54/54?random=366',
+//       avatarUrl: 'https://picsum.photos/54/54?random=366',
 //       isPro: false
 //     },
 //     comment: 'A quiet cozy and picturesque that hides behind a a river by the unique lightness of Amsterdam.',
@@ -17,7 +17,7 @@ import { TReviews } from '../components/tconst';
 //     date: '2020-01-15T09:22:10.123Z',
 //     user: {
 //       name: 'Maria Ivanova',
-//       avatarUrl: 'https://loremflickr.com/54/54?random=101',
+//       avatarUrl: 'https://picsum.photos/54/54?random=101',
 //       isPro: true
 //     },
 //     comment: 'The view from the balcony is simply breathtaking, especially at sunset.',
@@ -28,7 +28,7 @@ import { TReviews } from '../components/tconst';
 //     date: '2021-07-22T18:45:33.789Z',
 //     user: {
 //       name: 'Alexey Petrov',
-//       avatarUrl: 'https://loremflickr.com/54/54?random=202',
+//       avatarUrl: 'https://picsum.photos/54/54?random=202',
 //       isPro: false
 //     },
 //     comment: 'Very clean and modern apartment, close to all main attractions.',
@@ -39,7 +39,7 @@ import { TReviews } from '../components/tconst';
 //     date: '2018-11-03T11:02:44.001Z',
 //     user: {
 //       name: 'Elena Smirnova',
-//       avatarUrl: 'https://loremflickr.com/54/54?random=303',
+//       avatarUrl: 'https://picsum.photos/54/54?random=303',
 //       isPro: true
 //     },
 //     comment: 'Perfect location for exploring the city on foot.',
@@ -50,7 +50,7 @@ import { TReviews } from '../components/tconst';
 //     date: '2022-03-10T07:59:22.456Z',
 //     user: {
 //       name: 'Ivan Kuznetsov',
-//       avatarUrl: 'https://loremflickr.com/54/54?random=404',
+//       avatarUrl: 'https://picsum.photos/54/54?random=404',
 //       isPro: false
 //     },
 //     comment: 'Friendly host, everything was as described in the listing.',
@@ -61,7 +61,7 @@ import { TReviews } from '../components/tconst';
 //     date: '2017-09-18T16:33:11.890Z',
 //     user: {
 //       name: 'Olga Volkova',
-//       avatarUrl: 'https://loremflickr.com/54/54?random=505',
+//       avatarUrl: 'https://picsum.photos/54/54?random=505',
 //       isPro: true
 //     },
 //     comment: 'Great value for money, highly recommend!',
@@ -72,7 +72,7 @@ import { TReviews } from '../components/tconst';
 //     date: '2023-06-05T13:47:09.321Z',
 //     user: {
 //       name: 'Sergey Popov',
-//       avatarUrl: 'https://loremflickr.com/54/54?random=606',
+//       avatarUrl: 'https://picsum.photos/54/54?random=606',
 //       isPro: false
 //     },
 //     comment: 'The kitchen is well-equipped, ideal for cooking your own meals.',
@@ -83,7 +83,7 @@ import { TReviews } from '../components/tconst';
 //     date: '2020-12-31T20:15:55.678Z',
 //     user: {
 //       name: 'Natalia Orlova',
-//       avatarUrl: 'https://loremflickr.com/54/54?random=707',
+//       avatarUrl: 'https://picsum.photos/54/54?random=707',
 //       isPro: true
 //     },
 //     comment: 'Very comfortable bed and excellent Wi-Fi connection.',
@@ -94,7 +94,7 @@ import { TReviews } from '../components/tconst';
 //     date: '2019-08-14T08:29:44.234Z',
 //     user: {
 //       name: 'Dmitry Sokolov',
-//       avatarUrl: 'https://loremflickr.com/54/54?random=808',
+//       avatarUrl: 'https://picsum.photos/54/54?random=808',
 //       isPro: false
 //     },
 //     comment: 'A bit noisy at night due to nearby street, but overall good.',
@@ -105,7 +105,7 @@ import { TReviews } from '../components/tconst';
 //     date: '2021-04-20T19:01:33.567Z',
 //     user: {
 //       name: 'Anna Morozova',
-//       avatarUrl: 'https://loremflickr.com/54/54?random=909',
+//       avatarUrl: 'https://picsum.photos/54/54?random=909',
 //       isPro: true
 //     },
 //     comment: 'Spacious and bright room, perfect for a short stay.',
@@ -116,7 +116,7 @@ import { TReviews } from '../components/tconst';
 //     date: '2018-02-28T15:44:11.901Z',
 //     user: {
 //       name: 'Vladimir Lebedev',
-//       avatarUrl: 'https://loremflickr.com/54/54?random=110',
+//       avatarUrl: 'https://picsum.photos/54/54?random=110',
 //       isPro: false
 //     },
 //     comment: 'Check-in was smooth, host was very responsive.',
@@ -127,7 +127,7 @@ import { TReviews } from '../components/tconst';
 //     date: '2022-10-07T10:33:59.777Z',
 //     user: {
 //       name: 'Ekaterina Romanova',
-//       avatarUrl: 'https://loremflickr.com/54/54?random=211',
+//       avatarUrl: 'https://picsum.photos/54/54?random=211',
 //       isPro: true
 //     },
 //     comment: 'Loved the interior design, very stylish and cozy.',
@@ -138,7 +138,7 @@ import { TReviews } from '../components/tconst';
 //     date: '2020-07-16T17:58:22.888Z',
 //     user: {
 //       name: 'Pavel Nikitin',
-//       avatarUrl: 'https://loremflickr.com/54/54?random=312',
+//       avatarUrl: 'https://picsum.photos/54/54?random=312',
 //       isPro: false
 //     },
 //     comment: 'Good location, but a little bit far from the center.',
@@ -149,7 +149,7 @@ import { TReviews } from '../components/tconst';
 //     date: '2019-12-01T12:09:47.654Z',
 //     user: {
 //       name: 'Maria Sokolova',
-//       avatarUrl: 'https://loremflickr.com/54/54?random=413',
+//       avatarUrl: 'https://picsum.photos/54/54?random=413',
 //       isPro: true
 //     },
 //     comment: 'Everything was perfect, would definitely come back!',
@@ -164,7 +164,7 @@ export const reviews: TReviews = [
     date: '2024-01-15T10:30:00.000Z',
     user: {
       name: 'Sophia Johnson',
-      avatarUrl: 'https://loremflickr.com/54/54?random=63',
+      avatarUrl: 'https://picsum.photos/54/54?random=63',
       isPro: true
     },
     comment: 'Отличный апартамент! Очень чистый и удобный, расположение идеальное для туристов. Хозяин очень отзывчивый.',
@@ -176,7 +176,7 @@ export const reviews: TReviews = [
     date: '2024-01-10T14:45:30.000Z',
     user: {
       name: 'Mia Davis',
-      avatarUrl: 'https://loremflickr.com/54/54?random=23',
+      avatarUrl: 'https://picsum.photos/54/54?random=23',
       isPro: false
     },
     comment: 'Приятное место для проживания. Все необходимое есть. Немного шумно с улицы, но в целом хорошо.',
@@ -188,7 +188,7 @@ export const reviews: TReviews = [
     date: '2024-01-05T09:15:20.000Z',
     user: {
       name: 'William Clark',
-      avatarUrl: 'https://loremflickr.com/54/54?random=39',
+      avatarUrl: 'https://picsum.photos/54/54?random=39',
       isPro: true
     },
     comment: 'Прекрасный вид на город, современный интерьер. Кровать очень удобная. Рекомендую всем!',
@@ -200,7 +200,7 @@ export const reviews: TReviews = [
     date: '2023-12-28T16:20:45.000Z',
     user: {
       name: 'William Clark',
-      avatarUrl: 'https://loremflickr.com/54/54?random=91',
+      avatarUrl: 'https://picsum.photos/54/54?random=91',
       isPro: true
     },
     comment: 'Хорошее место для семьи. Много света, просторные комнаты. Кухня полностью оборудована.',
@@ -212,7 +212,7 @@ export const reviews: TReviews = [
     date: '2023-12-20T11:50:15.000Z',
     user: {
       name: 'Sophia Johnson',
-      avatarUrl: 'https://loremflickr.com/54/54?random=20',
+      avatarUrl: 'https://picsum.photos/54/54?random=20',
       isPro: false
     },
     comment: 'Уютное место в центре города. Все работает как надо. Немного маловато места в шкафу, но это не проблема.',
@@ -226,7 +226,7 @@ export const reviews: TReviews = [
     date: '2024-01-12T13:25:50.000Z',
     user: {
       name: 'Sophia Johnson',
-      avatarUrl: 'https://loremflickr.com/54/54?random=63',
+      avatarUrl: 'https://picsum.photos/54/54?random=63',
       isPro: true
     },
     comment: 'Лофт превосходен! Высокие потолки, панорамные окна, вид на вокзал. Идеально для творческих людей.',
@@ -238,7 +238,7 @@ export const reviews: TReviews = [
     date: '2024-01-08T15:40:30.000Z',
     user: {
       name: 'Mia Davis',
-      avatarUrl: 'https://loremflickr.com/54/54?random=23',
+      avatarUrl: 'https://picsum.photos/54/54?random=23',
       isPro: false
     },
     comment: 'Потрясающее место! Современный дизайн, все удобства на месте. Район очень живой и интересный.',
@@ -250,7 +250,7 @@ export const reviews: TReviews = [
     date: '2024-01-03T08:55:20.000Z',
     user: {
       name: 'William Clark',
-      avatarUrl: 'https://loremflickr.com/54/54?random=39',
+      avatarUrl: 'https://picsum.photos/54/54?random=39',
       isPro: true
     },
     comment: 'Отличный лофт, просторный и светлый. Может быть немного холодновато зимой, но хорошее отопление помогает.',
@@ -262,7 +262,7 @@ export const reviews: TReviews = [
     date: '2023-12-26T12:30:10.000Z',
     user: {
       name: 'William Clark',
-      avatarUrl: 'https://loremflickr.com/54/54?random=91',
+      avatarUrl: 'https://picsum.photos/54/54?random=91',
       isPro: true
     },
     comment: 'Идеальное место для пар и небольших групп. Кухня полностью оснащена. Близко ко всему необходимому.',
@@ -274,7 +274,7 @@ export const reviews: TReviews = [
     date: '2023-12-18T17:45:55.000Z',
     user: {
       name: 'Sophia Johnson',
-      avatarUrl: 'https://loremflickr.com/54/54?random=20',
+      avatarUrl: 'https://picsum.photos/54/54?random=20',
       isPro: false
     },
     comment: 'Шикарный лофт! Немного дорого, но оно того стоит. Месторасположение идеальное для ночной жизни.',

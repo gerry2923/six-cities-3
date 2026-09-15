@@ -37,6 +37,10 @@ function LocationNavigation({
   onLocationClick
 }: TLocationNavigation): JSX.Element {
 
+  const handleLocationClick = (cityName: string): void =>{
+    onLocationClick(cityName);
+  };
+
   return (
     <ul className="locations__list tabs__list">
       {cityNames.map((cityName) => (
@@ -44,7 +48,7 @@ function LocationNavigation({
           key={cityName}
           activeCity={activeCity}
           cityName={cityName}
-          onLocationClick={onLocationClick}
+          onLocationClick={handleLocationClick}
         />
       ))}
     </ul>

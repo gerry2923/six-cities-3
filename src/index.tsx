@@ -31,6 +31,7 @@ const defaultCityName : string = Array.from(cityNames).map((cityName) => {
 }).sort((a,b) => b.cityNumbr - a.cityNumbr)[0].cityName;
 
 const defaultCity : TCity | undefined = offers.find((offer) => offer.city.name === defaultCityName)?.city || offers[0]?.city;
+console.log(defaultCity);
 
 root.render(
   <React.StrictMode>

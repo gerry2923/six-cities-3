@@ -10,7 +10,7 @@ export const offers = [
       location: {
         latitude: 52.3676,
         longitude: 4.9041,
-        zoom: 13
+        zoom: 11,
       }
     },
     location: {
@@ -32,7 +32,7 @@ export const offers = [
     ],
     host: {
       name: 'Marie Dubois',
-      avatarUrl: 'https://loremflickr.com/54/54?random=1',
+      avatarUrl: 'https://picsum.photos/54/54?random=1',
       isPro: true
     },
     images: [
@@ -54,7 +54,7 @@ export const offers = [
       location: {
         latitude: 52.3676,
         longitude: 4.9041,
-        zoom: 13
+        zoom: 11
       }
     },
     location: {
@@ -77,7 +77,7 @@ export const offers = [
     ],
     host: {
       name: 'Jan van der Berg',
-      avatarUrl: 'https://loremflickr.com/54/54?random=2',
+      avatarUrl: 'https://picsum.photos/54/54?random=2',
       isPro: true
     },
     images: [
@@ -100,7 +100,7 @@ export const offers = [
       location: {
         latitude: 52.3676,
         longitude: 4.9041,
-        zoom: 13
+        zoom: 11
       }
     },
     location: {
@@ -122,7 +122,7 @@ export const offers = [
     ],
     host: {
       name: 'Emma Jansen',
-      avatarUrl: 'https://loremflickr.com/54/54?random=3',
+      avatarUrl: 'https://picsum.photos/54/54?random=3',
       isPro: false
     },
     images: [
@@ -144,7 +144,7 @@ export const offers = [
       location: {
         latitude: 52.3676,
         longitude: 4.9041,
-        zoom: 13
+        zoom: 11
       }
     },
     location: {
@@ -169,7 +169,7 @@ export const offers = [
     ],
     host: {
       name: 'Lucas Hendrickx',
-      avatarUrl: 'https://loremflickr.com/54/54?random=4',
+      avatarUrl: 'https://picsum.photos/54/54?random=4',
       isPro: true
     },
     images: [
@@ -193,12 +193,12 @@ export const offers = [
       location: {
         latitude: 52.3676,
         longitude: 4.9041,
-        zoom: 13
+        zoom: 11
       }
     },
     location: {
-      latitude: 52.3909553943508,
-      longitude: 4.85309666406198,
+      latitude: 52.33423125,
+      longitude: 4.94676431,
       zoom: 16
     },
     isFavorite: true,
@@ -216,7 +216,7 @@ export const offers = [
     ],
     host: {
       name: 'Sophie van Dijk',
-      avatarUrl: 'https://loremflickr.com/54/54?random=5',
+      avatarUrl: 'https://picsum.photos/54/54?random=5',
       isPro: false
     },
     images: [
@@ -241,7 +241,7 @@ export const offers = [
       location: {
         latitude: 50.9365,
         longitude: 6.9589,
-        zoom: 13
+        zoom: 11
       }
     },
     location: {
@@ -263,7 +263,7 @@ export const offers = [
     ],
     host: {
       name: 'Pierre Laurent',
-      avatarUrl: 'https://loremflickr.com/54/54?random=2',
+      avatarUrl: 'https://picsum.photos/54/54?random=2',
       isPro: false
     },
     images: [
@@ -276,6 +276,98 @@ export const offers = [
     maxAdults: 2
   },
   {
+    id: '13',
+    title: 'Cozy apartment near the cathedral',
+    type: 'apartment' as const,
+    price: 220,
+    previewImage: 'https://15.design.htmlacademy.pro/static/hotel/7.jpg',
+    city: {
+      name: 'Cologne',
+      location: {
+        latitude: 50.9365,
+        longitude: 6.9589,
+        zoom: 11
+      }
+    },
+    location: {
+      latitude: 50.9261,
+      longitude: 6.9100,
+      zoom: 16
+    },
+    isFavorite: true,
+    isPremium: true,
+    rating: 4.6,
+    description: 'Светлая квартира в историческом центре Кёльна, в двух шагах от знаменитого собора. Идеально для семейной поездки или романтического уик-энда.',
+    bedrooms: 2,
+    goods: [
+      'Wi-Fi',
+      'Kitchen',
+      'Washing machine',
+      'Dishwasher',
+      'Elevator',
+      'Balcony'
+    ],
+    host: {
+      name: 'Anna Schmidt',
+      avatarUrl: 'https://picsum.photos/54/54?random=7',
+      isPro: true
+    },
+    images: [
+      'https://loremflickr.com/260/200/apartment?random=861',
+      'https://loremflickr.com/260/200/apartment?random=862',
+      'https://loremflickr.com/260/200/apartment?random=863',
+      'https://loremflickr.com/260/200/apartment?random=864',
+      'https://loremflickr.com/260/200/apartment?random=865'
+    ],
+    maxAdults: 4
+  },
+  {
+    id: '14',
+    title: 'Modern house with garden',
+    type: 'house' as const,
+    price: 340,
+    previewImage: 'https://15.design.htmlacademy.pro/static/hotel/8.jpg',
+    city: {
+      name: 'Cologne',
+      location: {
+        latitude: 50.9365,
+        longitude: 6.9589,
+        zoom: 11
+      }
+    },
+    location: {
+      latitude: 50.9284,
+      longitude: 6.9432,
+      zoom: 16
+    },
+    isFavorite: false,
+    isPremium: false,
+    rating: 3.2,
+    description: 'Просторный дом с собственным садом в тихом районе Кёльна. Отличный вариант для большой компании или семьи с детьми.',
+    bedrooms: 4,
+    goods: [
+      'Heating',
+      'Garden',
+      'BBQ grill',
+      'Free parking',
+      'TV',
+      'Washer'
+    ],
+    host: {
+      name: 'Lukas Weber',
+      avatarUrl: 'https://picsum.photos/54/54?random=8',
+      isPro: false
+    },
+    images: [
+      'https://loremflickr.com/260/200/house?random=871',
+      'https://loremflickr.com/260/200/house?random=872',
+      'https://loremflickr.com/260/200/house?random=873',
+      'https://loremflickr.com/260/200/house?random=874',
+      'https://loremflickr.com/260/200/house?random=875'
+    ],
+    maxAdults: 6
+  },
+  {
     id: '7',
     title: 'The Joshua Tree House',
     type: 'hotel' as const,
@@ -286,7 +378,7 @@ export const offers = [
       location: {
         latitude: 50.8503,
         longitude: 4.3517,
-        zoom: 13
+        zoom: 11
       }
     },
     location: {
@@ -311,7 +403,7 @@ export const offers = [
     ],
     host: {
       name: 'Jean-Paul Martin',
-      avatarUrl: 'https://loremflickr.com/54/54?random=3',
+      avatarUrl: 'https://picsum.photos/54/54?random=3',
       isPro: true
     },
     images: [
@@ -335,7 +427,7 @@ export const offers = [
       location: {
         latitude: 48.8566,
         longitude: 2.3522,
-        zoom: 13
+        zoom: 11
       }
     },
     location: {
@@ -359,7 +451,7 @@ export const offers = [
     ],
     host: {
       name: 'Sophie Renard',
-      avatarUrl: 'https://loremflickr.com/54/54?random=4',
+      avatarUrl: 'https://picsum.photos/54/54?random=4',
       isPro: false
     },
     images: [
@@ -385,7 +477,7 @@ export const offers = [
       location: {
         latitude: 48.8566,
         longitude: 2.3522,
-        zoom: 13
+        zoom: 11
       }
     },
     location: {
@@ -409,7 +501,7 @@ export const offers = [
     ],
     host: {
       name: 'Claire Fontaine',
-      avatarUrl: 'https://loremflickr.com/54/54?random=6',
+      avatarUrl: 'https://picsum.photos/54/54?random=6',
       isPro: true
     },
     images: [
@@ -432,7 +524,7 @@ export const offers = [
       location: {
         latitude: 48.8566,
         longitude: 2.3522,
-        zoom: 13
+        zoom: 11
       }
     },
     location: {
@@ -454,7 +546,7 @@ export const offers = [
     ],
     host: {
       name: 'Antoine Leclerc',
-      avatarUrl: 'https://loremflickr.com/54/54?random=7',
+      avatarUrl: 'https://picsum.photos/54/54?random=7',
       isPro: false
     },
     images: [
@@ -476,7 +568,7 @@ export const offers = [
       location: {
         latitude: 48.8566,
         longitude: 2.3522,
-        zoom: 13
+        zoom: 11
       }
     },
     location: {
@@ -501,7 +593,7 @@ export const offers = [
     ],
     host: {
       name: 'Guillaume Moreau',
-      avatarUrl: 'https://loremflickr.com/54/54?random=8',
+      avatarUrl: 'https://picsum.photos/54/54?random=8',
       isPro: true
     },
     images: [
@@ -525,7 +617,7 @@ export const offers = [
       location: {
         latitude: 48.8566,
         longitude: 2.3522,
-        zoom: 13
+        zoom: 11
       }
     },
     location: {
@@ -548,7 +640,7 @@ export const offers = [
     ],
     host: {
       name: 'Isabelle Rousseau',
-      avatarUrl: 'https://loremflickr.com/54/54?random=9',
+      avatarUrl: 'https://picsum.photos/54/54?random=9',
       isPro: false
     },
     images: [

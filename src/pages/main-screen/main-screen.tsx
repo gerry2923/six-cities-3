@@ -6,7 +6,7 @@ import type TMain from './main-screen-types';
 import Sorting from '../../components/sorting/sorting';
 import Map from '../../components/map/map';
 import { useState } from 'react';
-import { TOffer } from '../../components/tconst';
+import { TCity, TOffer } from '../../components/tconst';
 
 
 /**
@@ -19,32 +19,33 @@ import { TOffer } from '../../components/tconst';
 
 function MainScreen({ userEmail, favoritesCount, defaultCity, places = [] }: TMain): JSX.Element {
   // activeCity - город, выбранный в шапке меню -> перерисовывает карту и карточки
-  const [activeCity, setActiveCity] = useState<string>(defaultCity);
-
+  const [activeCity, setActiveCity] = useState<string>(defaultCity?.name ?? '');
+  // Вычисляем активный город и отфильтрованные предложения на основе activeCity
+  const [activeCityLocationTab, setActiveCityLocationTab] = useState<TCity | undefined>(defaultCity);
 
   // activeLocation - активная карта, т.е. на которую навели курсор мышки -> меняет внешний вид карты и пин на карте становится другого цвета. ???? как сделать пин, другой установка правильного src???
-  const [activeLocation, setActiveLocation] = useState<TOffer | undefined>();
+  // const [activeLocation, setActiveLocation] = useState<TOffer | undefined>();
   const [activeOfferId, setActiveOfferId] = useState<string | null>(null);
 
-
-  // Вычисляем активный город и отфильтрованные предложения на основе activeCity
-  const activeCityLocation = places.find((place) => place.city.name === activeCity)?.city;
   const filteredPlaces = places.filter((place) => place.city.name === activeCity);
   const allCities = Array.from(new Set(places.map((place) => place.city.name)));
 
-  //?? где обновлять activeCityLocation? 
-  const handleActiveCityClick = (cityName: string): void => {
-    if (cityName) {
-      setActiveCity(cityName);
+  //?? где обновлять activeCityLocationTab?
+  const handleCityChange = (cityName: string): void => {
+    if (!cityName) {
+      return;
     }
+
+    const newLocation = places.find((p) => p.city.name === cityName)?.city;
+
+    setActiveCity(cityName);
+    setActiveCityLocationTab(newLocation);
+    setActiveOfferId(null);
   };
 
-  const handleActivCardClick = (offer: TOffer): void => {
-    if(offer) {
-      setActiveLocation(offer);
-      setActiveOfferId(offer.id);
-    }
-  }
+  const handleActivOfferChange = (offer: TOffer | null): void => {
+    setActiveOfferId(offer?.id ?? null);
+  };
 
   return (
     <div className="page page--gray page--main">
@@ -59,7 +60,7 @@ function MainScreen({ userEmail, favoritesCount, defaultCity, places = [] }: TMa
             <LocationNavigation
               activeCity={activeCity}
               cityNames={allCities}
-              onLocationClick={handleActiveCityClick}
+              onLocationClick={handleCityChange}
             />
           </section>
         </div>
@@ -72,14 +73,14 @@ function MainScreen({ userEmail, favoritesCount, defaultCity, places = [] }: TMa
               </b>
               <Sorting />
               <div className="cities__places-list places__list tabs__content">
-                <OfferList offers={filteredPlaces} onActiveOfferChange={handleActivCardClick}/>
+                <OfferList offers={filteredPlaces} onActiveOfferChange={handleActivOfferChange} />
               </div>
             </section>
 
             <div className="cities__right-section">
               {
-                activeCityLocation &&
-                <Map city={activeCityLocation} offers={filteredPlaces} activeOfferId={activeOfferId}/>
+                activeCityLocationTab &&
+                <Map city={activeCityLocationTab} offers={filteredPlaces} activeOfferId={activeOfferId} className='cities__map'/>
               }
 
             </div>

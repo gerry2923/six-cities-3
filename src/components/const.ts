@@ -1,3 +1,4 @@
+
 export enum AutorizationStatus {
   Auth = 'AUTH',
   NoAuth = 'NO_AUTH',
@@ -11,5 +12,7 @@ export enum AppRoute {
   Offer = '/offer/:id',
 }
 
-export const URL_MARKER_DEFAULT = '../img/pin.svg';
-export const URL_MARKER_ACTIVE = '../img/pin-acitve.svg';
+const publicUrl = import .meta.env.BASE_URL;
+
+export const URL_MARKER_DEFAULT = `${publicUrl}img/pin.svg`;
+export const URL_MARKER_ACTIVE = `${publicUrl}img/pin-active.svg`;

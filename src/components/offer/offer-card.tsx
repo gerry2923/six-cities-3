@@ -4,22 +4,24 @@ import { AppRoute } from '../const';
 
 type TOfferCard = {
   offer: TOffer;
-  onOfferHover: (offer?: TOffer) => void;
+  onOfferHover: (offer: TOffer | null) => void;
 }
 
 
 function OfferCard({ offer, onOfferHover }: TOfferCard) {
 
 
-  const route = `${AppRoute.Offer.slice(0, -2)}${offer.id}`;
+  // const route = `${AppRoute.Offer.slice(0, -2)}${offer.id}`;
+  // console.log(route);
 
+  const route = `${AppRoute.Offer.replace(':id', ':')}${offer.id}`;
   const handleMouseOver = () => {
     // передаем оффер этой карты
     onOfferHover(offer);
   };
 
   const handleMouseLeave = () => {
-    onOfferHover();
+    onOfferHover(null);
   };
 
   const rating = `${(offer.rating * 100 / 5).toString()}%`;
@@ -35,50 +37,48 @@ function OfferCard({ offer, onOfferHover }: TOfferCard) {
 
 
   return (
-    <Link to={route} >
-      <article
-        className="cities__card place-card"
-        onMouseOver={handleMouseOver}
-        onMouseLeave={handleMouseLeave}
-      >
-        {premium}
-        <div className="cities__image-wrapper place-card__image-wrapper">
-          <a href="#">
-            <img
-              className="place-card__image"
-              src={offer.previewImage}
-              width={260}
-              height={200}
-              alt="Place image"
-            />
-          </a>
-        </div>
-        <div className="place-card__info">
-          <div className="place-card__price-wrapper">
-            <div className="place-card__price">
-              <b className="place-card__price-value">€{offer.price}</b>
-              <span className="place-card__price-text">/&nbsp;night</span>
-            </div>
-            <button className={`place-card__bookmark-button button ${favorite}`} type="button">
-              <svg className="place-card__bookmark-icon" width={18} height={19}>
-                <use xlinkHref="#icon-bookmark" />
-              </svg>
-              <span className="visually-hidden">To bookmarks</span>
-            </button>
+    <article
+      className="cities__card place-card"
+      onMouseOver={handleMouseOver}
+      onMouseLeave={handleMouseLeave}
+    >
+      {premium}
+      <div className="cities__image-wrapper place-card__image-wrapper">
+        <Link to={route}>
+          <img
+            className="place-card__image"
+            src={offer.previewImage}
+            width={260}
+            height={200}
+            alt="Place image"
+          />
+        </Link>
+      </div>
+      <div className="place-card__info">
+        <div className="place-card__price-wrapper">
+          <div className="place-card__price">
+            <b className="place-card__price-value">€{offer.price}</b>
+            <span className="place-card__price-text">/&nbsp;night</span>
           </div>
-          <div className="place-card__rating rating">
-            <div className="place-card__stars rating__stars">
-              <span style={{ width: rating }} />
-              <span className="visually-hidden">Rating</span>
-            </div>
-          </div>
-          <h2 className="place-card__name">
-            <a href="#">{offer.city.name}</a>
-          </h2>
-          <p className="place-card__type">{offer.type}</p>
+          <button className={`place-card__bookmark-button button ${favorite}`} type="button">
+            <svg className="place-card__bookmark-icon" width={18} height={19}>
+              <use xlinkHref="#icon-bookmark" />
+            </svg>
+            <span className="visually-hidden">To bookmarks</span>
+          </button>
         </div>
-      </article>
-    </Link>
+        <div className="place-card__rating rating">
+          <div className="place-card__stars rating__stars">
+            <span style={{ width: rating }} />
+            <span className="visually-hidden">Rating</span>
+          </div>
+        </div>
+        <h2 className="place-card__name">
+          <Link to={route}>{offer.city.name}</Link>
+        </h2>
+        <p className="place-card__type">{offer.type}</p>
+      </div>
+    </article>
 
 
   );
