@@ -14,5 +14,7 @@ export enum AppRoute {
 
 const publicUrl = import .meta.env.BASE_URL;
 
+export const DEFAULT_CITY = 'Paris';
+
 export const URL_MARKER_DEFAULT = `${publicUrl}img/pin.svg`;
 export const URL_MARKER_ACTIVE = `${publicUrl}img/pin-active.svg`;

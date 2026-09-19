@@ -6,13 +6,12 @@ import Login from '../../pages/login-screen/login';
 import PrivateRoute from '../private-route/private-route';
 import Favorites from '../../pages/favorites-screen/favorites-screen';
 import NotFound from '../not-found/notFound';
-import MainScreen from '../../pages/main-screen/main-screen';
+import MainScreen from '../../pages/main-screen/main-screen_';
 import TApp from './app-types';
 import OfferScreen from '../../pages/offer-screen/offer-screen';
 
 
 function App({
-  defaultCity,
   authorizationStatus,
   offers,
   reviews,
@@ -28,7 +27,7 @@ function App({
               <MainScreen
                 userEmail={'Oliver@gmail.com'}
                 favoritesCount={8}
-                defaultCity={defaultCity}
+                // defaultCity={defaultCity}
                 places={offers}
               />
             }

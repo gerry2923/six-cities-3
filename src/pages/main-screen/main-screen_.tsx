@@ -5,10 +5,8 @@ import OfferList from '../../components/offer/offer-list';
 import type TMain from './main-screen-types';
 import Sorting from '../../components/sorting/sorting';
 import Map from '../../components/map/map';
-import { useAppDispatch, useAppSelector } from '../../store/hooks';
-import { selectActiveCity, selectOffersByCity } from '../../store/city-offers-slice';
-// import { useState } from 'react';
-// import { TCity, TOffer } from '../../components/tconst';
+import { useState } from 'react';
+import { TCity, TOffer } from '../../components/tconst';
 
 
 /**
@@ -16,8 +14,8 @@ import { selectActiveCity, selectOffersByCity } from '../../store/city-offers-sl
  *  активный город, - тот, который
  */
 
-function MainScreen({ userEmail, favoritesCount, places = [] }: TMain): JSX.Element {
-/*  // activeCity - город, выбранный в шапке меню -> перерисовывает карту и карточки
+function MainScreen({ userEmail, favoritesCount, defaultCity, places = [] }: TMain): JSX.Element {
+  // activeCity - город, выбранный в шапке меню -> перерисовывает карту и карточки
   const [activeCity, setActiveCity] = useState<string>(defaultCity?.name ?? '');
   // Вычисляем активный город и отфильтрованные предложения на основе activeCity
   const [activeCityLocationTab, setActiveCityLocationTab] = useState<TCity | undefined>(defaultCity);
@@ -45,17 +43,8 @@ function MainScreen({ userEmail, favoritesCount, places = [] }: TMain): JSX.Elem
   const handleActivOfferChange = (offer: TOffer | null): void => {
     setActiveOfferId(offer?.id ?? null);
   };
-*/
 
-  // ДОБАВЛЯЕМ ЛОГИКУ SLICE
-  const dispatch = useAppDispatch();
-  const activeCity = useAppSelector(selectActiveCity);
-  const offersByCity = useAppSelector(selectOffersByCity);
-
-  // Сначала устанавливаем город
-  // TODO: после добавления сервера убрать useEffect и сделать
-
-return (
+  return (
     <div className="page page--gray page--main">
       <Helmet>
         <title>Основной экран</title>
