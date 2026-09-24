@@ -1,3 +1,4 @@
+import { SortType } from './const';
 
 export type TUrl = string;
 
@@ -55,3 +56,5 @@ export type TOffer = {
   images: null | string[];
   maxAdults: number;
 };
+
+export type TSortType = typeof SortType[keyof typeof SortType];

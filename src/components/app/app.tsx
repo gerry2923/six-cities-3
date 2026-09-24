@@ -6,7 +6,7 @@ import Login from '../../pages/login-screen/login';
 import PrivateRoute from '../private-route/private-route';
 import Favorites from '../../pages/favorites-screen/favorites-screen';
 import NotFound from '../not-found/notFound';
-import MainScreen from '../../pages/main-screen/main-screen_';
+import MainScreen from '../../pages/main-screen/main-screen';
 import TApp from './app-types';
 import OfferScreen from '../../pages/offer-screen/offer-screen';
 
@@ -14,6 +14,7 @@ import OfferScreen from '../../pages/offer-screen/offer-screen';
 function App({
   authorizationStatus,
   offers,
+  allCities,
   reviews,
 }: TApp): JSX.Element {
 
@@ -27,6 +28,7 @@ function App({
               <MainScreen
                 userEmail={'Oliver@gmail.com'}
                 favoritesCount={8}
+                allCities={allCities}
                 // defaultCity={defaultCity}
                 places={offers}
               />
