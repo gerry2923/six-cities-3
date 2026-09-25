@@ -6,89 +6,54 @@ import type TMain from './main-screen-types';
 import Sorting from '../../components/sorting/sorting';
 import Map from '../../components/map/map';
 import { useAppDispatch, useAppSelector } from '../../store/hooks';
-import { selectActiveCity, selectOffersByCity, setActiveCity, setOffersByCity } from '../../store/city-offers-slice';
+import { selectActiveCity, selectSortType, setActiveCity, setSortType } from '../../store/city-offers-slice';
 import { useEffect, useState } from 'react';
-import { DEFAULT_CITY_NAME } from '../../components/const';
+import { DEFAULT_CITY_NAME, SortType } from '../../components/const';
 // import { useState } from 'react';
-import { TCity, TOffer } from '../../components/tconst';
+import { TOffer, TSortType } from '../../components/tconst';
+import { selectActiveCityLocation, selectAllCitiesNames, selectSortedOffers } from '../../store/selectors';
+// import { setOffers } from '../../store/offers-slice';
 
 
 /**
  *TODO:
- *  активный город, - тот, который
+ *  как попадут моки в стор?
  */
 
-function MainScreen({ userEmail, favoritesCount, allCities, places = [] }: TMain): JSX.Element {
-/*  // activeCity - город, выбранный в шапке меню -> перерисовывает карту и карточки
-  const [activeCity, setActiveCity] = useState<string>(defaultCity?.name ?? '');
-  // Вычисляем активный город и отфильтрованные предложения на основе activeCity
-  const [activeCityLocationTab, setActiveCityLocationTab] = useState<TCity | undefined>(defaultCity);
-
-  // activeLocation - активная карта, т.е. на которую навели курсор мышки -> меняет внешний вид карты и пин на карте становится другого цвета. ???? как сделать пин, другой установка правильного src???
-  // const [activeLocation, setActiveLocation] = useState<TOffer | undefined>();
-  const [activeOfferId, setActiveOfferId] = useState<string | null>(null);
-
-  const filteredPlaces = places.filter((place) => place.city.name === activeCity);
-  const allCities = Array.from(new Set(places.map((place) => place.city.name)));
-
-  //?? где обновлять activeCityLocationTab?
-  const handleCityChange = (cityName: string): void => {
-    if (!cityName) {
-      return;
-    }
-
-    const newLocation = places.find((p) => p.city.name === cityName)?.city;
-
-    setActiveCity(cityName);
-    setActiveCityLocationTab(newLocation);
-    setActiveOfferId(null);
-  };
-
-  const handleActivOfferChange = (offer: TOffer | null): void => {
-    setActiveOfferId(offer?.id ?? null);
-  };
-*/
+function MainScreen({ userEmail, favoritesCount }: TMain): JSX.Element {
 
   // ДОБАВЛЯЕМ ЛОГИКУ SLICE
   const dispatch = useAppDispatch(); // для пенредачи
-  const activeCity = useAppSelector(selectActiveCity); // для принятия
-  const offersByCity = useAppSelector(selectOffersByCity); // для принятия
 
-  const defaultCityName = DEFAULT_CITY_NAME;
-  const defaultCity = places.find((place) => place.city.name === defaultCityName)?.city;
-  // тут нам надо сохранить объект TCity, чтобы передать его в карту для извлечения КООРДИНАТ
-  // нужно добавить объект города по умолчанию
-  const [activeCityTab, setActiveCityTab] = useState<TCity | undefined>(defaultCity);
+  const activeCity = useAppSelector(selectActiveCity); // для принятия
+  const allCities = useAppSelector(selectAllCitiesNames);
+  const sortedOffers = useAppSelector(selectSortedOffers); // для принятия
+  const activeCityLocation = useAppSelector(selectActiveCityLocation);
+  const sortType = useAppSelector(selectSortType);
+
   // id предложения, которое выделено курсором мышки
   const [activeOfferId, setActiveOfferId] = useState<string | null>(null);
-  // названия всех городов, для установки во вкладках заголовка
-  // const allCities = Array.from(new Set(places.map((place) => place.city.name)));
+
 
   // Сначала устанавливаем город
   // TODO: после добавления сервера убрать useEffect и сделать через сервер
   useEffect(() => {
-    if (activeCity === '' && places.length > 0) {
-
-      dispatch(setActiveCity(defaultCityName));
-      dispatch(
-        setOffersByCity(places.filter((place) => place.city.name === DEFAULT_CITY_NAME))
-      );
-      setActiveCityTab(defaultCity);
+    if (activeCity === '' && allCities.length > 0) {
+      dispatch(setActiveCity(DEFAULT_CITY_NAME));
     }
-  }, [activeCity, dispatch, places.length, places, defaultCityName, defaultCity]);
+  }, [activeCity, allCities, dispatch]);
 
   // нажатие на таб с городом
   const handleCityChange = (cityName: string) : void => {
     if (!cityName) {
       return;
     }
-
-    const newLocation = places.find((place) => place.city.name === cityName)?.city;
-
+    // установили новое значение города
     dispatch(setActiveCity(cityName));
-    setActiveCityTab(newLocation);
+    // обнулили сортировку
+    dispatch(setSortType(SortType.Popular));
+    // обнулили выделенную мышкой карточку предложенжия
     setActiveOfferId(null);
-    dispatch(setOffersByCity(places.filter((place) => place.city.name === cityName)));
 
   };
 
@@ -96,8 +61,9 @@ function MainScreen({ userEmail, favoritesCount, allCities, places = [] }: TMain
     setActiveOfferId(offer?.id ?? null);
   };
 
-  const handleSortChange = (option: string) : void => {
-    console.log(option);
+  const handleSortChange = (option: TSortType) : void => {
+    dispatch(setSortType(option));
+
   };
 
   return (
@@ -122,20 +88,22 @@ function MainScreen({ userEmail, favoritesCount, allCities, places = [] }: TMain
             <section className="cities__places places">
               <h2 className="visually-hidden">Places</h2>
               <b className="places__found">
-                {offersByCity.length} places to stay in {activeCity}
+                {sortedOffers.length} places to stay in {activeCity}
               </b>
-              <Sorting onSortChange={handleSortChange}/>
+
+              <Sorting sortType={sortType} onSortChange={handleSortChange}/>
+
               <div className="cities__places-list places__list tabs__content">
-                <OfferList offers={offersByCity} onActiveOfferChange={handleActivOfferChange} />
+                <OfferList offers={sortedOffers} onActiveOfferChange={handleActivOfferChange} />
               </div>
             </section>
 
             <div className="cities__right-section">
               {
-                activeCityTab &&
+                activeCityLocation &&
                 <Map
-                  city={activeCityTab}
-                  offers={offersByCity}
+                  city={activeCityLocation}
+                  offers={sortedOffers}
                   activeOfferId={activeOfferId}
                   className='cities__map'
                 />

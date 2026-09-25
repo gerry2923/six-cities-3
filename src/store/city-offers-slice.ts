@@ -1,20 +1,21 @@
 import { createSlice } from '@reduxjs/toolkit';
 import type { PayloadAction } from '@reduxjs/toolkit';
-import { TOffer } from '../components/tconst';
+import { TSortType } from '../components/tconst';
 import { RootState } from './store';
+import { SortType } from '../components/const';
 
 export type TCityOffersState = {
   activeCity: string;
-  offersByCity: TOffer[];
+  sortType: TSortType;
 }
 
 // начальное состояние
 const initialState: TCityOffersState = {
   activeCity: '',
-  offersByCity : [],
+  sortType: SortType.Popular,
 };
 
-// slice
+// сохраняем значение данных, которые изменяет пользователь во вне, т.е. UI
 export const cityOffersSlice = createSlice({
   name: 'cityOffers',
   initialState,
@@ -24,24 +25,22 @@ export const cityOffersSlice = createSlice({
       state.activeCity = action.payload;
     },
     // передаем отсортированные офферы по городу
-    setOffersByCity(state, action: PayloadAction<TOffer[]>) {
-      state.offersByCity = action.payload;
+    setSortType(state, action: PayloadAction<TSortType>) {
+      state.sortType = action.payload;
     },
     // сброс при выходе со страницы
     resetCityOffers(state) {
       state.activeCity = initialState.activeCity;
-      state.offersByCity = initialState.offersByCity;
+      state.sortType = initialState.sortType;
     }
   },
 });
 
 // Action creators are generated for each case reducer function
-export const { setActiveCity, setOffersByCity, resetCityOffers } = cityOffersSlice.actions;
+export const { setActiveCity, setSortType, resetCityOffers } = cityOffersSlice.actions;
 
 // селекторы, те. то, что возвращает из стора данные
-
 export const selectActiveCity = (state: RootState) => state.cityOffers.activeCity;
-
-export const selectOffersByCity = (state: RootState) => state.cityOffers.offersByCity;
+export const selectSortType = (state: RootState) => state.cityOffers.sortType;
 // редьюсер
 export default cityOffersSlice.reducer;

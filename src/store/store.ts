@@ -1,10 +1,12 @@
 import { configureStore } from '@reduxjs/toolkit';
 // добавили новое имя для reducer cityOffersSlice.reducer
 import cityOffersReducer from '../store/city-offers-slice';
+import offersReducer from '../store/offers-slice';
 
 export const store = configureStore({
   reducer: {
     cityOffers: cityOffersReducer,
+    offers: offersReducer,
   },
 });
 

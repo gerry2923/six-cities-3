@@ -25,7 +25,7 @@ root.render(
       <App
         offers={offers}
         reviews={reviews}
-        allCities={Array.from(new Set(offers.map((offer) => offer.city.name)))}
+        // allCities={Array.from(new Set(offers.map((offer) => offer.city.name)))}
         authorizationStatus={authorizationStatus}
       />
     </Provider>

@@ -5,7 +5,7 @@ type TApp = {
   // defaultCity: TCity;
   authorizationStatus: AutorizationStatus;
   offers: TOffer[];
-  allCities: string[];
+  // allCities: string[];
   reviews: TReview[];
 }
 
