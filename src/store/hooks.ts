@@ -1,7 +1,7 @@
 // добавляем свои хуки, чтобы сразу показать типизацию
 
 import { TypedUseSelectorHook, useDispatch, useSelector } from 'react-redux';
-import type { RootState, AppDispatch } from './store';
+import type { RootState, AppDispatch } from '.';
 
 export const useAppDispatch = () => useDispatch<AppDispatch>();
 // typeduseselectorhook - не нужно писать (state: RootState)

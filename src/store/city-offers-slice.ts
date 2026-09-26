@@ -1,7 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit';
 import type { PayloadAction } from '@reduxjs/toolkit';
 import { TSortType } from '../components/tconst';
-import { RootState } from './store';
+import { RootState } from '.';
 import { SortType } from '../components/const';
 
 export type TCityOffersState = {

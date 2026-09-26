@@ -1,6 +1,6 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { TOffer } from '../components/tconst';
-import { RootState } from './store';
+import { RootState } from '.';
 import { offers as mockOffers } from '../mocks/offers';
 
 export interface OffersState {

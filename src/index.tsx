@@ -7,7 +7,8 @@ import { AutorizationStatus } from './components/const';
 import { reviews } from './mocks/reviews';
 // import { TCity } from './components/tconst';
 import { Provider } from 'react-redux';
-import { store } from './store/store';
+import { store } from './store';
+
 // import { TOffer } from './components/tconst';
 
 const root = ReactDOM.createRoot(
