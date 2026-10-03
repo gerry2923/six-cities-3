@@ -25,6 +25,18 @@ export const offersSlice = createSlice({
     setOffers(state, action: PayloadAction<TOffer[]>): void {
       state.offers = action.payload;
     },
+     extraReducers(builder) {
+    builder
+      .addCase(fetchOfferAction.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(fetchOfferAction.fulfilled, (state) => {
+        state.isLoading = false;
+      })
+      .addCase(fetchOfferAction.rejected, (state) => {
+        state.isLoading = false;
+      });
+  },
   }
 });
 
