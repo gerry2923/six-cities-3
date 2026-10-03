@@ -12,6 +12,13 @@ export enum AppRoute {
   Offer = '/offer/:id',
 }
 
+
+export enum APIRoute {
+  Offers = '/offers',
+  login = '/login',
+  logout = '/logout',
+}
+
 const publicUrl = import .meta.env.BASE_URL;
 
 export const DEFAULT_CITY_NAME = 'Paris';

@@ -1,7 +1,7 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { TOffer } from '../components/tconst';
 import { RootState } from '.';
-import { offers as mockOffers } from '../mocks/offers';
+// import { offers as mockOffers } from '../mocks/offers';
 
 export interface OffersState {
   offers: TOffer[];
@@ -10,7 +10,8 @@ export interface OffersState {
 }
 
 const initialState: OffersState = {
-  offers: mockOffers,
+  // offers: mockOffers,
+  offers:[],
   isLoading: true,
   // error: null,
 };
@@ -29,4 +30,5 @@ export const offersSlice = createSlice({
 
 export const {setOffers} = offersSlice.actions;
 export const selectAllOffers = (state: RootState) => state.offers.offers;
+export const selectIsLoading = (state: RootState) => state.offers.isLoading;
 export default offersSlice.reducer; // Эта форма записи позволяет переписать имя редьюсера

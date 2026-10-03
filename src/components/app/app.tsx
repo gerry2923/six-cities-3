@@ -9,14 +9,31 @@ import NotFound from '../not-found/notFound';
 import MainScreen from '../../pages/main-screen/main-screen';
 import TApp from './app-types';
 import OfferScreen from '../../pages/offer-screen/offer-screen';
+import { useAppDispatch, useAppSelector } from '../../store/hooks';
+import { useEffect } from 'react';
+import { fetchOfferAction } from '../../services/api-actions';
+import { selectAllOffers, selectIsLoading } from '../../store/offers-slice';
 
 
 function App({
   authorizationStatus,
-  offers,
+  // offers,
   // allCities,
   reviews,
 }: TApp): JSX.Element {
+
+  // Добавляем загрузку данных с сервера
+  const dispatch = useAppDispatch();
+  const offers = useAppSelector(selectAllOffers);
+  const isLoading = useAppSelector(selectIsLoading);
+
+  useEffect(() => {
+    dispatch(fetchOfferAction);
+  }, [dispatch]);
+
+  if (isLoading) {
+    return <Spinner />;
+  }
 
   return (
     <HelmetProvider>

@@ -15,6 +15,7 @@ export const store = configureStore({
     getDefaultMiddleware({
       thunk: {
         // когда будем описывать асинхронные действия, мы всегда сможем получимть доступ к api через extraArgument
+        // тут надо еще указать тип для ExtraArgument
         extraArgument: api,
       }
     }),

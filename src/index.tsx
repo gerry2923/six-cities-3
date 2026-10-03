@@ -2,7 +2,7 @@ import ReactDOM from 'react-dom/client';
 import App from './components/app/app';
 import React from 'react';
 
-import { offers } from './mocks/offers'; // все предложения по всем городам, т.е. то, что хранит store
+// import { offers } from './mocks/offers'; // все предложения по всем городам, т.е. то, что хранит store
 import { AutorizationStatus } from './components/const';
 import { reviews } from './mocks/reviews';
 // import { TCity } from './components/tconst';
@@ -18,13 +18,14 @@ const root = ReactDOM.createRoot(
 const authorizationStatus = AutorizationStatus.Auth;
 // TODO: изменить получение списка всех городов allCities, когда подключится асинхрон
 
+// ToDo: тут надо добавить загрузку предложений из хранилища
 
 root.render(
   <React.StrictMode>
     <Provider store={store}>
       {/* <App userEmail={email} favoritesCount={favoritesCount} places={[...offers]} /> */}
       <App
-        offers={offers}
+        // offers={offers}
         reviews={reviews}
         // allCities={Array.from(new Set(offers.map((offer) => offer.city.name)))}
         authorizationStatus={authorizationStatus}
