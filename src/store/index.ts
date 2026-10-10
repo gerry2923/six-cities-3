@@ -1,15 +1,23 @@
-import { configureStore } from '@reduxjs/toolkit';
+import { /*combineReducers,*/ configureStore } from '@reduxjs/toolkit';
 // добавили новое имя для reducer cityOffersSlice.reducer
-import cityOffersReducer from './city-offers-slice';
-import offersReducer from './offers-slice';
+import cityOffersReducer from './filters/filters-slice';
+import offersReducer from './offers/offers-slice';
+import userReducer from './user/user-slice';
 import { createAPI } from '../services/api';
 
 export const api = createAPI();
+
+// const reducer  = combineReducers(
+//   [offersSlice]: offersSlice.reducer,
+
+// );
+
 
 export const store = configureStore({
   reducer: {
     cityOffers: cityOffersReducer,
     offers: offersReducer,
+    user: userReducer,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({

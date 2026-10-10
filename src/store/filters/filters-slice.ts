@@ -1,8 +1,8 @@
 import { createSlice } from '@reduxjs/toolkit';
 import type { PayloadAction } from '@reduxjs/toolkit';
-import { TSortType } from '../components/tconst';
-import { RootState } from '.';
-import { SortType } from '../components/const';
+import { TSortType } from '../../components/tconst';
+import { RootState } from '..';
+import { SortType } from '../../components/const';
 
 export type TCityOffersState = {
   activeCity: string;
@@ -16,7 +16,7 @@ const initialState: TCityOffersState = {
 };
 
 // сохраняем значение данных, которые изменяет пользователь во вне, т.е. UI
-export const cityOffersSlice = createSlice({
+export const filtersSlice = createSlice({
   name: 'cityOffers',
   initialState,
   reducers: {
@@ -37,10 +37,10 @@ export const cityOffersSlice = createSlice({
 });
 
 // Action creators are generated for each case reducer function
-export const { setActiveCity, setSortType, resetCityOffers } = cityOffersSlice.actions;
+export const { setActiveCity, setSortType, resetCityOffers } = filtersSlice.actions;
 
 // селекторы, те. то, что возвращает из стора данные
 export const selectActiveCity = (state: RootState) => state.cityOffers.activeCity;
 export const selectSortType = (state: RootState) => state.cityOffers.sortType;
 // редьюсер
-export default cityOffersSlice.reducer;
+export default filtersSlice.reducer;

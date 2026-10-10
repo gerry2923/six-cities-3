@@ -7,7 +7,7 @@ import FavoritesEmpty from '../../components/favorites/favorites-empty';
 import { TFavoritesByCity } from './favorites-types';
 
 
-function FavoritesScreen({offers} : {offers: TOffer[]}) {
+function FavoritesScreen():JSX.Element {
   // посчитать есть ли любимые. Если нет, то пустой экран, если есть, то отобразить
   const cityNames = new Set([...offers].map((offer) => offer.city.name));
   let favoritesCount = 0;

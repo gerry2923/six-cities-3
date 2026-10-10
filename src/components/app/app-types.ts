@@ -1,12 +1,13 @@
 import { AutorizationStatus } from '../const';
+import { TReview } from '../tconst';
 // import { TOffer, TReview } from '../tconst';
 
 type TApp = {
   // defaultCity: TCity;
-  authorizationStatus: AutorizationStatus;
+  // authorizationStatus: AutorizationStatus;
   // offers: TOffer[];
   // allCities: string[];
-  reviews: TReview[];
+  // reviews: TReview[];
 }
 
 

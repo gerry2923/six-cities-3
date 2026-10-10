@@ -80,7 +80,7 @@ function FavoriteCity({ cityFavorites }: { cityFavorites: TFavoritesByCity }): J
   );
 }
 
-function Favorites({ favorites }: { favorites: TFavoritesByCity[] }): JSX.Element {
+function Favorites(): JSX.Element {
   return (
     <main className='page__main page__main--favorites'>
       <div className='page__favorites-container container'>
@@ -89,13 +89,13 @@ function Favorites({ favorites }: { favorites: TFavoritesByCity[] }): JSX.Elemen
           <ul className='favorites__list'>
 
             {
-              favorites.map((favorite) =>
-                (
-                  <FavoriteCity
-                    key={favorite.city}
-                    cityFavorites={favorite}
-                  />
-                ))
+              // favorites.map((favorite) =>
+              //   (
+              //     <FavoriteCity
+              //       key={favorite.city}
+              //       cityFavorites={favorite}
+              //     />
+              //   ))
             }
           </ul>
         </section>

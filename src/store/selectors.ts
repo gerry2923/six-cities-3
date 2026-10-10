@@ -1,6 +1,6 @@
 import { createSelector } from '@reduxjs/toolkit';
-import { selectAllOffers } from './offers-slice';
-import { selectActiveCity, selectSortType } from './city-offers-slice';
+import { selectAllOffers } from './offers/offers-slice';
+import { selectActiveCity, selectSortType } from './filters/filters-slice';
 import { SortType } from '../components/const';
 
 

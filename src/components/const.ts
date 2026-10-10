@@ -12,11 +12,20 @@ export enum AppRoute {
   Offer = '/offer/:id',
 }
 
-
+// эта часть добавляется к адресу сервера, чтобы по этому маршруту найти данные
 export enum APIRoute {
   Offers = '/offers',
-  login = '/login',
-  logout = '/logout',
+  Login = '/login',
+  Logout = '/logout',
+  Favorites = '/favorite',
+  Comments = '/comments',
+}
+
+export enum RequestStatus {
+  Failed = 'failed',
+  Success = 'success',
+  Loading = 'loading',
+  Idle = 'idle', // начальное состояние, когда запрос еще ни разу не выполнялся
 }
 
 const publicUrl = import .meta.env.BASE_URL;

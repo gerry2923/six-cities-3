@@ -2,11 +2,11 @@ import { Helmet } from 'react-helmet-async';
 import Header from '../../components/header/header';
 import LocationNavigation from '../../components/location-navigation/location-navigation';
 import OfferList from '../../components/offer/offer-list';
-import type TMain from './main-screen-types';
+// import type TMain from './main-screen-types';
 import Sorting from '../../components/sorting/sorting';
 import Map from '../../components/map/map';
 import { useAppDispatch, useAppSelector } from '../../store/hooks';
-import { selectActiveCity, selectSortType, setActiveCity, setSortType } from '../../store/city-offers-slice';
+import { selectActiveCity, selectSortType, setActiveCity, setSortType } from '../../store/filters/filters-slice';
 import { useEffect, useState } from 'react';
 import { DEFAULT_CITY_NAME, SortType } from '../../components/const';
 // import { useState } from 'react';
@@ -15,12 +15,7 @@ import { selectActiveCityLocation, selectAllCitiesNames, selectSortedOffers } fr
 // import { setOffers } from '../../store/offers-slice';
 
 
-/**
- *TODO:
- *  как попадут моки в стор?
- */
-
-function MainScreen({ userEmail, favoritesCount }: TMain): JSX.Element {
+function MainScreen(): JSX.Element {
 
   // ДОБАВЛЯЕМ ЛОГИКУ SLICE
   const dispatch = useAppDispatch(); // для пенредачи

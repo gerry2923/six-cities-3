@@ -75,7 +75,8 @@ type TOfferScreen = {
 
 // отрисуй offer
 // смотрим, авторизированный пользователь или нет + проверяем по id есть ли такое предложение или нет
-function OfferScreen({ offers, reviews, autorizationStatus }: TOfferScreen) {
+function OfferScreen():JSX.Element
+ {
   const { id } = useParams();
   const [activeOfferId, setActiveOfferId] = useState<string | null>(null);
 

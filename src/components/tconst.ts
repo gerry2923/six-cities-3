@@ -6,6 +6,8 @@ export type TUser = {
   name: string;
   avatarUrl: TUrl;
   isPro: boolean;
+  email: string;
+  token: string;
 };
 
 export type TReview = {
