@@ -1,4 +1,4 @@
-import { TReview } from '../tconst';
+import { TReview } from '../types';
 import Review from './review';
 
 type TReviews = {

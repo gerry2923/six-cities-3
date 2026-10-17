@@ -1,7 +1,7 @@
 import { createSelector } from '@reduxjs/toolkit';
-import { selectAllOffers } from './offers/offers-slice';
-import { selectActiveCity, selectSortType } from './filters/filters-slice';
-import { SortType } from '../components/const';
+import { selectAllOffers } from './offers-slice';
+import { selectActiveCity, selectSortType } from '../filters/filters-slice';
+import { SortType } from '../../components/const';
 
 
 // выбираем все названия городв, которые нужно поставить в табы

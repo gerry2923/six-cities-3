@@ -8,6 +8,7 @@ import React from 'react';
 // import { TCity } from './components/tconst';
 import { Provider } from 'react-redux';
 import { store } from './store';
+import { checkAuth } from './store/user/user-thunk';
 
 // import { TOffer } from './components/tconst';
 
@@ -17,8 +18,9 @@ const root = ReactDOM.createRoot(
 
 // const authorizationStatus = AutorizationStatus.Auth;
 // TODO: изменить получение списка всех городов allCities, когда подключится асинхрон
-
 // ToDo: тут надо добавить загрузку предложений из хранилища
+// проверка статуса аутентификации
+store.dispatch(checkAuth());
 
 root.render(
   <React.StrictMode>

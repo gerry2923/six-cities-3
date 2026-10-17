@@ -1,37 +1,81 @@
-import type THeader from '../header/header-types';
+// import type THeader from '../header/header-types';
+import { Link, useLocation } from 'react-router-dom';
+import { useActionCreators, useAppSelector, useAuth } from '../../store/hooks';
 import Logo from '../logo/logo';
+import { AppRoute } from '../const';
+import { selectUser, userActions } from '../../store/user/user-slice';
 
+function LoggedNav(): JSX.Element {
+  const user = useAppSelector(selectUser);
+  const { logout } = useActionCreators(userActions);
+  // TODO: добавить подстчет избранного --> нужны все офферы с пользователем
+  return (
+    <>
+      <li className="header__nav-item user">
+        <Link
+          className="header__nav-link header__nav-link--profile"
+          to={AppRoute.Favorites}
+        >
+          <div className="header__avatar-wrapper user__avatar-wrapper"></div>
+          <span className="header__user-name user__name">
+            {user?.email}
+          </span>
+          <span className="header__favorite-count">{555}</span>
+        </Link>
+      </li>
+      <li className="header__nav-item">
+        <Link
+          className="header__nav-link"
+          onClick={() => {
+            logout();
+          }}
+          // to={AppRoute.Login}
+          to=""
+        >
+          <span className="header__signout">Sign out</span>
+        </Link>
+      </li>
+    </>
+  );
+}
 
-function Header ({ userEmail, favoritesCount } : THeader): JSX.Element {
+function NotLoggedNav(): JSX.Element {
+  return (
+    <li className="header__nav-item user">
+      <Link className="header__nav-link header__nav-link--profile" to={AppRoute.Login}>
+        <div className="header__avatar-wrapper user__avatar-wrapper"></div>
+        <span className="header__login">Sign in</span>
+      </Link>
+    </li>
+  );
+}
+
+function Navigation(): JSX.Element {
+  const isAuthorized = useAuth();
+  return (
+    <nav className="header__nav">
+      <ul className="header__nav-list">
+        {isAuthorized ? <LoggedNav /> : <NotLoggedNav />}
+      </ul>
+    </nav>
+  );
+}
+
+function Header(): JSX.Element {
+  const { pathname } = useLocation();
+  const isLoginScreen = pathname === AppRoute.Login as string;
 
   return (
     <header className="header">
       <div className="container">
         <div className="header__wrapper">
+
           <div className="header__left">
             <Logo />
           </div>
-          <nav className="header__nav">
-            <ul className="header__nav-list">
-              <li className="header__nav-item user">
-                <a
-                  className="header__nav-link header__nav-link--profile"
-                  href="#"
-                >
-                  <div className="header__avatar-wrapper user__avatar-wrapper"></div>
-                  <span className="header__user-name user__name">
-                    {userEmail}
-                  </span>
-                  <span className="header__favorite-count">{favoritesCount}</span>
-                </a>
-              </li>
-              <li className="header__nav-item">
-                <a className="header__nav-link" href="#">
-                  <span className="header__signout">Sign out</span>
-                </a>
-              </li>
-            </ul>
-          </nav>
+
+          {isLoginScreen ? '' : <Navigation />}
+
         </div>
       </div>
     </header>

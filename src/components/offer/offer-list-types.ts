@@ -1,4 +1,4 @@
-import { TOffer } from '../tconst';
+import { TOffer } from '../types';
 
 type TOffersList = {
   offers: TOffers;

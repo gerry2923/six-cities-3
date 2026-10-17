@@ -1,5 +1,5 @@
 import { formatDateToMonthYear } from '../../utils/date';
-import { TReview } from '../tconst';
+import { TReview } from '../types';
 
 function Review({ review }: { review: TReview }): JSX.Element {
 

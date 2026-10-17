@@ -3,19 +3,15 @@
 
 import { TypedUseSelectorHook, useDispatch, useSelector } from 'react-redux';
 import type { RootState, AppDispatch } from '.';
-import { ActionCreator, ActionCreatorsMapObject, AsyncThunk, createAsyncThunk } from '@reduxjs/toolkit';
+import { ActionCreator, ActionCreatorsMapObject, AsyncThunk } from '@reduxjs/toolkit';
 import { bindActionCreators } from '@reduxjs/toolkit';
-import { AxiosInstance } from 'axios';
 import { useMemo } from 'react';
+import { selectAuthorizationStatus } from './user/user-slice';
+import { AutorizationStatus } from '../components/const';
 
 export const useAppDispatch = () => useDispatch<AppDispatch>();
 // typeduseselectorhook - не нужно писать (state: RootState)
 export const useAppSelector: TypedUseSelectorHook<RootState> = useSelector;
-// для того, чтобы не писать постоянно {extra: AxiosInstance}
-export const createAppAsyncThunk = createAsyncThunk.withTypes<{
-  extra : AxiosInstance;
-}>();
-
 
 // типы для useActionCreators
 type BoundActions<Actions extends ActionCreatorsMapObject> = {
@@ -35,4 +31,9 @@ export const useActionCreators = <Actions extends ActionCreatorsMapObject>(actio
   const dispatch = useAppDispatch();
 
   return useMemo(() => bindActionCreators(actions, dispatch), [actions, dispatch]);
+};
+
+export const useAuth = () => {
+  const status = useAppSelector(selectAuthorizationStatus);
+  return status === AutorizationStatus.Auth;
 };

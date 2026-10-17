@@ -1,11 +1,17 @@
-import { dropToken, saveToken } from '../../services/token';
+import { dropToken, getToken, saveToken } from '../../services/token';
 import { APIRoute } from '../../components/const';
-import { TUser } from '../../components/tconst';
-import { createAppAsyncThunk } from '../hooks';
+import { TLogInfo, TUser } from '../../components/types';
+import { createAppAsyncThunk } from '../create-thunk';
+
 
 export const checkAuth = createAppAsyncThunk<TUser, undefined>(
   'user/checkAuth',
   async(_arg, {extra: api, rejectWithValue}) => {
+
+    if (!getToken()) {
+      return rejectWithValue('Нет токена');
+    }
+
     try {
       const { data } = await api.get<TUser>(APIRoute.Login);
       return data;
@@ -16,8 +22,7 @@ export const checkAuth = createAppAsyncThunk<TUser, undefined>(
   }
 );
 
-
-export const login = createAppAsyncThunk<>(
+export const login = createAppAsyncThunk<TUser, TLogInfo>(
   'user/login',
   async ({ email, password }, { extra: api, rejectWithValue }) => {
 

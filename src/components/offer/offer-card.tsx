@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import { TOffer } from '../tconst';
+import { TOffer } from '../types';
 import { AppRoute } from '../const';
 
 type TOfferCard = {

@@ -3,7 +3,7 @@ import { createAsyncThunk } from '@reduxjs/toolkit';
 // import { setOffers } from '../store/offers-slice';
 import { AxiosInstance } from 'axios';
 import { APIRoute } from '../components/const';
-import { TOffer } from '../components/tconst';
+import { TOffer } from '../components/types';
 
 
 // У функции fetchAllOffers есть методы (т.к. она объект) fulfilled, pending, rejected, settled. createAsyncThunk вызывает эти функции автоматически. Когда запрос только начинается, то автоматически диспачится action pending. Если запрос прошел успешно, диспачится автоматически fullfilled, если ошибки - rejected

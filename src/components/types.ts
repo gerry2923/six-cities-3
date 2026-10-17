@@ -10,7 +10,7 @@ export type TUser = {
   token: string;
 };
 
-export type TReview = {
+export type TComment = {
   id: string;
   offerId: string;
   date: string;
@@ -19,7 +19,7 @@ export type TReview = {
   rating: number;
 };
 
-export type TReviews = TReview[];
+export type TComments = TComment[];
 
 export type THost = {
   name: string;
@@ -60,3 +60,8 @@ export type TOffer = {
 };
 
 export type TSortType = typeof SortType[keyof typeof SortType];
+
+export type TLogInfo = {
+  email: string;
+  password: string;
+}

@@ -1,5 +1,5 @@
 import { useEffect, useRef } from 'react';
-import { TCity, TOffer } from '../tconst';
+import { TCity, TOffer } from '../types';
 import leaflet from 'leaflet';
 
 

@@ -1,5 +1,5 @@
 import { AutorizationStatus } from '../const';
-import { TReview } from '../tconst';
+import { TReview } from '../types';
 // import { TOffer, TReview } from '../tconst';
 
 type TApp = {

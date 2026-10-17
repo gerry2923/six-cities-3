@@ -2,8 +2,10 @@ import { /*combineReducers,*/ configureStore } from '@reduxjs/toolkit';
 // добавили новое имя для reducer cityOffersSlice.reducer
 import cityOffersReducer from './filters/filters-slice';
 import offersReducer from './offers/offers-slice';
+import offerReducer from './offer/offer-slice';
 import userReducer from './user/user-slice';
 import { createAPI } from '../services/api';
+// import { AxiosInstance } from 'axios';
 
 export const api = createAPI();
 
@@ -15,9 +17,10 @@ export const api = createAPI();
 
 export const store = configureStore({
   reducer: {
-    cityOffers: cityOffersReducer,
+    cityOffers: cityOffersReducer, // UI reducer
     offers: offersReducer,
     user: userReducer,
+    offer: offerReducer,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({

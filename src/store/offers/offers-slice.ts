@@ -1,7 +1,8 @@
-import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { TOffer } from '../../components/tconst';
+import { createSlice } from '@reduxjs/toolkit';
+import { TOffer } from '../../components/types';
 import { RootState } from '..';
-import { fetchAllOffers } from '../../services/_api-actions';
+import { fetchAllOffers } from './offers-thunk';
+// import { fetchAllOffers } from '../../services/_api-actions';
 // import { offers as mockOffers } from '../mocks/offers';
 
 export interface OffersState {
@@ -23,14 +24,13 @@ export const offersSlice = createSlice({
   initialState,
   reducers: {
     // мы заменяем массив с предложениями на новый массив с впредложениями, который изменили. Он лежит в action.payload
-    setOffers(state, action: PayloadAction<TOffer[]>): void {
-      state.offers = action.payload;
-    },
+    // setOffers(state, action: PayloadAction<TOffer[]>): void {
+    //   state.offers = action.payload;
+    // },
   },
   // дополнительные асинхронные редьюсеры - преобразователи данных
   extraReducers(builder) {
     builder
-
       .addCase(fetchAllOffers.pending, (state) => {
         state.isLoading = true;
       })
@@ -46,7 +46,8 @@ export const offersSlice = createSlice({
 });
 
 // export const { setOffers } = offersSlice.actions;
-export const offersActions = { ...offersSlice.actions, fetchAllOffers};
+// export const offersActions = { ...offersSlice.actions, fetchAllOffers};
+export const offersActions = { fetchAllOffers};
 export const selectAllOffers = (state: RootState) => state.offers.offers;
-export const selectIsLoading = (state: RootState) => state.offers.isLoading;
+export const selectOffersLoading = (state: RootState) => state.offers.isLoading;
 export default offersSlice.reducer; // Эта форма записи позволяет переписать имя редьюсера

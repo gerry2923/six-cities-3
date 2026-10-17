@@ -24,15 +24,14 @@ export const createAPI = (): AxiosInstance => {
       // если токен есть и есть секция с заголовком, то к заголовку добавим дополнительный ключ
       // Иногда заголовка в начале создания конфигурации нет, но он появляется при отправке или принятии запроса
       if (token && config.headers) {
-        config.headers['x-token'] = token;
+        config.headers['X-Token'] = token;
       }
 
       return config;
     }
   );
 
+  // действие, которое выполняется при перехвате ответа с сервера, например, показ ошибки
   // api.interceptors.response.use();
-
-
   return api;
 };

@@ -1,8 +1,8 @@
-import { Fragment, useState } from 'react';
+import { Fragment, useEffect, useState } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { useParams } from 'react-router-dom';
 import Header from '../../components/header/header';
-import { TOffer, TReview } from '../../components/tconst';
+import { TOffer, TReview } from '../../components/types';
 import { AutorizationStatus } from '../../components/const';
 import NotFound from '../../components/not-found/notFound';
 import Login from '../login-screen/login';
@@ -10,6 +10,7 @@ import Map from '../../components/map/map';
 import Reviews from '../../components/reviews/rerviews';
 import ReviewForm from '../../components/reviews/review-form';
 import OfferList from '../../components/offer/offer-list';
+import { fetchNearBy, fetchOffer } from '../../store/offer/offer-slice-thunk';
 
 
 function Insides({offer} : {offer: TOffer}){
@@ -75,15 +76,13 @@ type TOfferScreen = {
 
 // отрисуй offer
 // смотрим, авторизированный пользователь или нет + проверяем по id есть ли такое предложение или нет
-function OfferScreen():JSX.Element
- {
+function OfferScreen():JSX.Element{
   const { id } = useParams();
   const [activeOfferId, setActiveOfferId] = useState<string | null>(null);
 
 
   // eslint-disable-next-line no-console
-  const currentOffer: TOffer | undefined = offers.find((offer: TOffer) => offer.id === id?.trim().slice(1)
-  );
+  const currentOffer: TOffer | undefined = offers.find((offer: TOffer) => offer.id === id?.trim().slice(1));
 
   if (!currentOffer) {
     // фокус с типами
@@ -100,10 +99,15 @@ function OfferScreen():JSX.Element
   const rating = `${(currentOffer.rating * 100 / 5).toString()}%`;
 
   // найти все отзывы для данного предложения
-  const currentOfferReviews = reviews.filter((review) => review.offerId === currentOffer.id);
-  const favoritesNumber = offers.filter((offer) => offer.isFavorite === true).length;
-  const nearbyOffers = offers.filter((offer) => offer.city.name === currentOffer.city.name);
-  const nearbyOffersToShow = nearbyOffers.length > 3 ? nearbyOffers.slice(0, 3) : nearbyOffers;
+  // const currentOfferReviews = reviews.filter((review) => review.offerId === currentOffer.id);
+  // const favoritesNumber = offers.filter((offer) => offer.isFavorite === true).length;
+  // const nearbyOffers = offers.filter((offer) => offer.city.name === currentOffer.city.name);
+  // const nearbyOffersToShow = nearbyOffers.length > 3 ? nearbyOffers.slice(0, 3) : nearbyOffers;
+
+  useEffect(() => {
+    Promise.all([fetchOffer(id as string), fetchNearBy(id as string), fetchComments(id as string)]);
+
+  },[fetchOffer, fetchNearBy, fetchComments, id]);
 
   const handleActivOfferChange = (offer: TOffer | null): void => {
     setActiveOfferId(offer?.id ?? null);

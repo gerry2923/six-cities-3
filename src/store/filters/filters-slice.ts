@@ -1,8 +1,8 @@
 import { createSlice } from '@reduxjs/toolkit';
 import type { PayloadAction } from '@reduxjs/toolkit';
-import { TSortType } from '../../components/tconst';
+import { TSortType } from '../../components/types';
 import { RootState } from '..';
-import { SortType } from '../../components/const';
+import { DEFAULT_CITY_NAME, SortType } from '../../components/const';
 
 export type TCityOffersState = {
   activeCity: string;
@@ -11,7 +11,7 @@ export type TCityOffersState = {
 
 // начальное состояние
 const initialState: TCityOffersState = {
-  activeCity: '',
+  activeCity: DEFAULT_CITY_NAME,
   sortType: SortType.Popular,
 };
 

@@ -1,5 +1,5 @@
 import { SortType } from '../const';
-import { TSortType } from '../tconst';
+import { TSortType } from '../types';
 import { useEffect, useState, useRef } from 'react';
 
 // popular | 'price-low-to-high' | 'price-high-to-low' | 'top-rated'

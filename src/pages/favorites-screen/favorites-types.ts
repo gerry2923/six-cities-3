@@ -1,4 +1,4 @@
-import { TOffer } from '../../components/tconst';
+import { TOffer } from '../../components/types';
 
 type TFavoritesByCity = {
   city: string;

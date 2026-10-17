@@ -7,36 +7,29 @@ import OfferScreen from '../../pages/offer-screen/offer-screen';
 
 import { HelmetProvider } from 'react-helmet-async';
 import { Route, BrowserRouter, Routes } from 'react-router-dom';
-import { AppRoute } from '../const';
+import { AppRoute, AutorizationStatus } from '../const';
 import { useAppSelector,} from '../../store/hooks';
 import { selectAuthorizationStatus } from '../../store/user/user-slice';
+import { useEffect } from 'react';
+import Spinner from '../spinner/spinner';
+import { getToken } from '../../services/token';
+import { checkAuth } from '../../store/user/user-thunk';
 
 
 function App(): JSX.Element {
-
-  /*  // Добавляем загрузку данных с сервера
-  // const dispatch = useAppDispatch();
-  // const offers = useAppSelector(selectAllOffers);
-  // const isLoading = useAppSelector(selectIsLoading);
-
-  // const { fetchAllOffers } = useActionCreators(offersActions);
-
-  // useEffect(() => {
-  //   fetchAllOffers()
-  //     .unwrap()
-  //     .then(() => {
-  //       console.log('sucsess');
-  //     })
-  //     .catch(() => {
-  //       console.log('Error');
-  //     });
-  // });
-
-  // if (isLoading) {
-  //   return <Spinner />;
-  // }
-*/
   const authorizationStatus = useAppSelector(selectAuthorizationStatus);
+  const token = getToken();
+
+  // проверяем есть ли токен. Если есть, то логинимся
+  useEffect(() => {
+    if(token) {
+      checkAuth();
+    }
+  }, [token]);
+
+  if (authorizationStatus === AutorizationStatus.Unknown) {
+    return <Spinner />;
+  }
 
   return (
     <HelmetProvider>
@@ -44,11 +37,17 @@ function App(): JSX.Element {
         <Routes>
 
           <Route path={AppRoute.Main} element={<MainScreen />}/>
-          <Route path={AppRoute.Login} element={<Login />} />
+          <Route path={AppRoute.Login} element={
+            // onlyUnAuth={true}
+            <PrivateRoute onlyUnAuth>
+              <Login />
+            </PrivateRoute>
+          }
+          />
 
           <Route path={AppRoute.Favorites}
             element={
-              <PrivateRoute authorizationStatus={authorizationStatus}>
+              <PrivateRoute >
                 <Favorites />
               </PrivateRoute>
             }

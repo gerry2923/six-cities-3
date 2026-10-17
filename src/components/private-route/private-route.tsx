@@ -1,20 +1,40 @@
-import { AutorizationStatus, AppRoute } from '../const';
-import { Navigate } from 'react-router-dom';
+import { useAppSelector } from '../../store/hooks';
+import { selectUser } from '../../store/user/user-slice';
+import { AppRoute } from '../const';
+import { Navigate, useLocation, Location } from 'react-router-dom';
 
 type TPrivateRoute = {
-  authorizationStatus: AutorizationStatus;
+  onlyUnAuth?: boolean;
   children: JSX.Element;
 };
 
-function PrivateRoute(props : TPrivateRoute){
+type FromState = {
+  from?: Location;
+}
 
-  const {authorizationStatus, children} = props;
+function PrivateRoute({ children, onlyUnAuth = false }: TPrivateRoute) {
+  // объект, который описывает текущий url. у него есть несклько полей
+  // сохраняет знчение только в текущей вкладке
+  const location: Location<FromState> = useLocation() as Location<FromState>;
 
-  return (
-    authorizationStatus === AutorizationStatus.Auth ?
-      children :
-      <Navigate to={AppRoute.Login}/>
-  );
+  const user = useAppSelector(selectUser);
+
+  if(onlyUnAuth && user) {
+    const from = location.state?.from || {pathname: AppRoute.Main};
+    return <Navigate to={from} />;
+  }
+
+  if(!onlyUnAuth && !user) {
+    return <Navigate state={{from: location}} to={AppRoute.Login} />;
+  }
+
+
+  return children;
+  // return (
+  //   authorizationStatus === AutorizationStatus.Auth ?
+  //     children :
+  //     <Navigate to={AppRoute.Login} />
+  // );
 }
 
 export default PrivateRoute;

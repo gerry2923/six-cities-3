@@ -1,5 +1,5 @@
 import { TFavoritesByCity } from '../../pages/favorites-screen/favorites-types';
-import { TOffer } from '../tconst';
+import { TOffer } from '../types';
 
 
 function FavoriteCard({offer}: {offer: TOffer}) {
@@ -81,6 +81,7 @@ function FavoriteCity({ cityFavorites }: { cityFavorites: TFavoritesByCity }): J
 }
 
 function Favorites(): JSX.Element {
+
   return (
     <main className='page__main page__main--favorites'>
       <div className='page__favorites-container container'>

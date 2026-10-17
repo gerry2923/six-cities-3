@@ -1,45 +1,53 @@
-import { Helmet } from 'react-helmet-async';
 import Header from '../../components/header/header';
 import LocationNavigation from '../../components/location-navigation/location-navigation';
 import OfferList from '../../components/offer/offer-list';
-// import type TMain from './main-screen-types';
 import Sorting from '../../components/sorting/sorting';
 import Map from '../../components/map/map';
-import { useAppDispatch, useAppSelector } from '../../store/hooks';
+
+import { Helmet } from 'react-helmet-async';
+import { useActionCreators, useAppDispatch, useAppSelector } from '../../store/hooks';
 import { selectActiveCity, selectSortType, setActiveCity, setSortType } from '../../store/filters/filters-slice';
 import { useEffect, useState } from 'react';
-import { DEFAULT_CITY_NAME, SortType } from '../../components/const';
-// import { useState } from 'react';
-import { TOffer, TSortType } from '../../components/tconst';
-import { selectActiveCityLocation, selectAllCitiesNames, selectSortedOffers } from '../../store/selectors';
-// import { setOffers } from '../../store/offers-slice';
+import { SortType } from '../../components/const';
+import { TOffer, TSortType } from '../../components/types';
+import { selectActiveCityLocation, selectAllCitiesNames, selectSortedOffers } from '../../store/offers/selectors';
+import { offersActions } from '../../store/offers/offers-slice';
 
 
 function MainScreen(): JSX.Element {
 
-  // ДОБАВЛЯЕМ ЛОГИКУ SLICE
-  const dispatch = useAppDispatch(); // для пенредачи
+  const dispatch = useAppDispatch(); // для передачи
 
+  const { fetchAllOffers } = useActionCreators(offersActions);
   const activeCity = useAppSelector(selectActiveCity); // для принятия
+
+  // этот массив должен быть статичный
   const allCities = useAppSelector(selectAllCitiesNames);
+
+  // предложения подгружаются в селектор selectSortedOffers
   const sortedOffers = useAppSelector(selectSortedOffers); // для принятия
+
   const activeCityLocation = useAppSelector(selectActiveCityLocation);
   const sortType = useAppSelector(selectSortType);
 
   // id предложения, которое выделено курсором мышки
   const [activeOfferId, setActiveOfferId] = useState<string | null>(null);
 
-
-  // Сначала устанавливаем город
-  // TODO: после добавления сервера убрать useEffect и сделать через сервер
+  // добавили загрузку предложений
   useEffect(() => {
-    if (activeCity === '' && allCities.length > 0) {
-      dispatch(setActiveCity(DEFAULT_CITY_NAME));
+    if (sortedOffers.length === 0) {
+      fetchAllOffers()
+        .unwrap()
+        .catch(() => {
+          console.error('error при загрузке приложений');
+        });
     }
-  }, [activeCity, allCities, dispatch]);
+
+  }, [fetchAllOffers, sortedOffers.length]);
+
 
   // нажатие на таб с городом
-  const handleCityChange = (cityName: string) : void => {
+  const handleCityChange = (cityName: string): void => {
     if (!cityName) {
       return;
     }
@@ -52,11 +60,11 @@ function MainScreen(): JSX.Element {
 
   };
 
-  const handleActivOfferChange = (offer: TOffer | null): void => {
+  const handleActiveOfferChange = (offer: TOffer | null): void => {
     setActiveOfferId(offer?.id ?? null);
   };
 
-  const handleSortChange = (option: TSortType) : void => {
+  const handleSortChange = (option: TSortType): void => {
     dispatch(setSortType(option));
 
   };
@@ -66,7 +74,8 @@ function MainScreen(): JSX.Element {
       <Helmet>
         <title>Основной экран</title>
       </Helmet>
-      <Header userEmail={userEmail} favoritesCount={favoritesCount} />
+      <Header />
+
       <main className="page__main page__main--index">
         <h1 className="visually-hidden">Cities</h1>
         <div className="tabs">
@@ -86,10 +95,14 @@ function MainScreen(): JSX.Element {
                 {sortedOffers.length} places to stay in {activeCity}
               </b>
 
-              <Sorting sortType={sortType} onSortChange={handleSortChange}/>
+              <Sorting sortType={sortType} onSortChange={handleSortChange} />
 
               <div className="cities__places-list places__list tabs__content">
-                <OfferList offers={sortedOffers} onActiveOfferChange={handleActivOfferChange} />
+                <OfferList
+                  key={activeCity}
+                  offers={sortedOffers}
+                  onActiveOfferChange={handleActiveOfferChange}
+                />
               </div>
             </section>
 
@@ -103,7 +116,6 @@ function MainScreen(): JSX.Element {
                   className='cities__map'
                 />
               }
-
             </div>
           </div>
         </div>

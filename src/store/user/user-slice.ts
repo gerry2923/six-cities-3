@@ -1,8 +1,8 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { AutorizationStatus, RequestStatus } from '../../components/const';
 import { RootState } from '..';
-import { TUser } from '../../components/tconst';
-import { checkAuth } from './user-thunk';
+import { TUser } from '../../components/types';
+import { checkAuth, login, logout } from './user-thunk';
 
 
 export interface UserState {
@@ -26,7 +26,6 @@ function processLoading(state: UserState){
 function processFailed(state: UserState){
   state.requestStatus = RequestStatus.Failed;
   state.authorizationStatus = AutorizationStatus.NoAuth;
-
 }
 
 function processSuccess(state: UserState, action:PayloadAction<TUser>){
@@ -51,12 +50,15 @@ export const userSlice = createSlice({
 
   },
   extraReducers: (builder) => {
-    builder.addCase(checkAuth.pending, processLoading)
+    builder
+      .addCase(checkAuth.pending, processLoading)
       .addCase(checkAuth.fulfilled, processSuccess)
       .addCase(checkAuth.rejected, processFailed)
+
       .addCase(login.pending, processLoading)
       .addCase(login.fulfilled, processSuccess)
       .addCase(login.rejected, processFailed)
+
       .addCase(logout.pending, processLoading)
       .addCase(logout.fulfilled, (state) => {
         state.authorizationStatus = AutorizationStatus.NoAuth;
