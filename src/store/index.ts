@@ -1,27 +1,28 @@
-import { /*combineReducers,*/ configureStore } from '@reduxjs/toolkit';
+import { combineReducers, configureStore } from '@reduxjs/toolkit';
 // добавили новое имя для reducer cityOffersSlice.reducer
-import cityOffersReducer from './filters/filters-slice';
+import uiReducer from './ui/ui-slice';
 import offersReducer from './offers/offers-slice';
 import offerReducer from './offer/offer-slice';
 import userReducer from './user/user-slice';
+import commentsReducer from './comments/comments-slice';
+import favoritesReducer from './favorites/favorites-slice';
 import { createAPI } from '../services/api';
 // import { AxiosInstance } from 'axios';
 
 export const api = createAPI();
 
-// const reducer  = combineReducers(
-//   [offersSlice]: offersSlice.reducer,
-
-// );
+const reducer = combineReducers({
+  ui: uiReducer, // UI reducer
+  offers: offersReducer,
+  user: userReducer,
+  offer: offerReducer,
+  comments: commentsReducer,
+  favorites: favoritesReducer,
+});
 
 
 export const store = configureStore({
-  reducer: {
-    cityOffers: cityOffersReducer, // UI reducer
-    offers: offersReducer,
-    user: userReducer,
-    offer: offerReducer,
-  },
+  reducer,
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({
       thunk: {
@@ -33,7 +34,7 @@ export const store = configureStore({
 });
 
 // выводим типы `RootState` and `AppDispatch` из хранилища
-export type RootState = ReturnType<typeof store.getState>
+export type RootState = ReturnType<typeof store.getState>;
 
 // Inferred type: {posts: PostsState, comments: CommentsState, users: UsersState}
-export type AppDispatch = typeof store.dispatch
+export type AppDispatch = typeof store.dispatch;

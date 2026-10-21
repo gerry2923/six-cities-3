@@ -1,19 +1,25 @@
 import { APIRoute } from '../../components/const';
-import { TOffer } from '../../components/types';
+import { OfferId, TFavoriteStatus, TOffer } from '../../components/types';
 import { createAppAsyncThunk } from '../create-thunk';
 
+export const toFavoriteStatus = (isFavorite: boolean): TFavoriteStatus => isFavorite ? 0 : 1;
 
 export type TFavoriteInfo = {
-  offerId: string;
-  status: 0 | 1; // 1 - добавить, 0 - удалить
+  offerId: OfferId;
+  isFavorite: boolean;
 }
 // fetch - получить
-export const fetchFavorites = createAppAsyncThunk<TOffer[], undefined>(
-  'favorite/fetchAll',
-  async (_arg, {extra: api}) => {
+export const fetchFavorites = createAppAsyncThunk<OfferId[], void>(
+  'favorites/fetch',
+  async (_arg, {extra: api, rejectWithValue}) => {
+    try {
+      const response = await api.get<TOffer[]>(APIRoute.Favorites);
+      return response.data.map((offer) => offer.id); // возвращаем только id офферов
+    } catch(error) {
+      return rejectWithValue('Не удалось загрузить избранное');
+    }
     // api.get('тут пишем адрес url КУДА мы шлём запрос')
-    const response = await api.get<TOffer[]>(APIRoute.Favorites);
-    return response.data;
+
   }
 );
 
@@ -21,12 +27,16 @@ export const fetchFavorites = createAppAsyncThunk<TOffer[], undefined>(
 // также можно преобразовать значение статуса: передавать true или false, а затем заменять их на 0 или 1
 export const changeFavoriteStatus = createAppAsyncThunk<TOffer, TFavoriteInfo>(
   'favorite/changeStatus',
-  async ({ offerId, status }, { extra: api, rejectWithValue }) => {
+  async ({ offerId, isFavorite }, { extra: api, rejectWithValue }) => {
+
+    const status: TFavoriteStatus = isFavorite ? 0 : 1;
     try {
       const { data } = await api.post<TOffer>(`${APIRoute.Favorites}/${offerId}/${status}`);
       return data;
     } catch (error) {
-      return rejectWithValue('не удалось добавить в/удалить из избранного');
+      return rejectWithValue('не удалось изменить избранное значение');
     }
   }
 );
+
+export const favoritesThunks = { fetchFavorites, changeFavoriteStatus};

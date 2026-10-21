@@ -1,8 +1,8 @@
-export type TLocationNavigation = {
-  activeCity: string;
-  cityNames: string[];
-  onLocationClick: (cityName: string) => void;
-};
+// export type TLocationNavigation = {
+//   activeCity: string;
+//   cityNames: string[];
+//   onLocationClick: (cityName: string) => void;
+// };
 
 
 export type TLocation = {

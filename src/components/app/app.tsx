@@ -53,7 +53,8 @@ function App(): JSX.Element {
             }
           />
 
-          <Route path={AppRoute.Offer} element={<OfferScreen />}/>
+
+          <Route path={`${AppRoute.Offer}/:id`} element={<OfferScreen />} />
           <Route path='*' element={<NotFound type={'page'}/>} />
 
         </Routes>

@@ -47,7 +47,7 @@ export const offersSlice = createSlice({
 
 // export const { setOffers } = offersSlice.actions;
 // export const offersActions = { ...offersSlice.actions, fetchAllOffers};
-export const offersActions = { fetchAllOffers};
+export const offersActions = { fetchAllOffers };
 export const selectAllOffers = (state: RootState) => state.offers.offers;
 export const selectOffersLoading = (state: RootState) => state.offers.isLoading;
 export default offersSlice.reducer; // Эта форма записи позволяет переписать имя редьюсера

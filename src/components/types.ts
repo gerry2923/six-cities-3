@@ -65,3 +65,7 @@ export type TLogInfo = {
   email: string;
   password: string;
 }
+
+export type OfferId = TOffer['id'];
+
+export type TFavoriteStatus = 1 | 0;

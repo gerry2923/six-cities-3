@@ -2,6 +2,7 @@ import { createSlice } from '@reduxjs/toolkit';
 import { RequestStatus } from '../../components/const';
 import { TOffer } from '../../components/types';
 import { fetchNearBy, fetchOffer } from './offer-slice-thunk';
+import { RootState } from '..';
 
 export interface OfferState {
   info: TOffer | null;
@@ -50,9 +51,9 @@ export const offerActions = {
 };
 
 export const offerSelectors = {
-  nearbyOffers: (state: OfferState) => state.nearby,
-  offer: (state: OfferState) => state.info,
-  offerStatus: (state: OfferState) => state.status,
+  nearbyOffers: (state: RootState) => state.offer.nearby,
+  offer: (state: RootState) => state.offer.info,
+  offerStatus: (state: RootState) => state.offer.status,
 };
 
 export default offerSlice.reducer;

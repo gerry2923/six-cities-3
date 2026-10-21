@@ -5,7 +5,8 @@ import { Helmet } from 'react-helmet-async';
 
 const variants = {
   page: {text: 'Page Not Found', o: '😣'},
-  offer: {text: 'We have no offers with that ID', o: '🤯'}
+  offer: {text: 'We have no offers with that ID', o: '🤯'},
+  other: {text: 'Something went wrong', o: '🤔'}
 };
 
 type TNotFoundProps = {

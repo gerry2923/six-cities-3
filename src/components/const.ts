@@ -9,7 +9,8 @@ export enum AppRoute {
   Main = '/',
   Login = '/login',
   Favorites = '/favorites',
-  Offer = '/offer/:id',
+  Offer = '/offers',
+  Comments = '/comments'
 }
 
 // эта часть добавляется к адресу сервера, чтобы по этому маршруту найти данные
@@ -41,3 +42,6 @@ export const SortType = {
   PriceHighToLow: 'price-high-to-low',
   TopRated: 'top-rated',
 } as const;
+
+
+export const ALL_CITIES_NAMES : string[] = ['Paris', 'Cologne', 'Brussels', 'Amsterdam', 'Humburg','Dusseldorf'] as const;

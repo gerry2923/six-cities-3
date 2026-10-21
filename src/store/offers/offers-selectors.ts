@@ -1,16 +1,8 @@
 import { createSelector } from '@reduxjs/toolkit';
 import { selectAllOffers } from './offers-slice';
-import { selectActiveCity, selectSortType } from '../filters/filters-slice';
+import { selectActiveCity, selectSortType } from '../ui/ui-slice';
 import { SortType } from '../../components/const';
 
-
-// выбираем все названия городв, которые нужно поставить в табы
-// selectAllOffers = вернет нам все предложения, которые мы получили с сервера и они пропишутся в offers
-
-export const selectAllCitiesNames = createSelector(
-  [selectAllOffers],
-  (offers) => Array.from(new Set(offers.map((offer) => offer.city.name)))
-);
 
 // возвращает массив предложений
 export const selectOffersByCity = createSelector(
@@ -40,4 +32,9 @@ export const selectSortedOffers = createSelector(
         return filteredOffers;
     }
   }
+);
+
+
+export const selectSortedOffersLength = createSelector([selectSortedOffers],
+  (offers) => offers.length
 );

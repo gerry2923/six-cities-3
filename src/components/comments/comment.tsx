@@ -1,22 +1,22 @@
 import { formatDateToMonthYear } from '../../utils/date';
-import { TReview } from '../types';
+import { TComment } from '../types';
 
-function Review({ review }: { review: TReview }): JSX.Element {
+function Comment({ comment }: { comment: TComment }): JSX.Element {
 
-  const rating = `${(review.rating * 100 / 5).toString()}%`;
+  const rating = `${(comment.rating * 100 / 5).toString()}%`;
   return (
     <li className="reviews__item">
       <div className="reviews__user user">
         <div className="reviews__avatar-wrapper user__avatar-wrapper">
           <img
             className="reviews__avatar user__avatar"
-            src={review.user.avatarUrl}
+            src={comment.user.avatarUrl}
             width={54}
             height={54}
             alt="Reviews avatar"
           />
         </div>
-        <span className="reviews__user-name">{review.user.name}</span>
+        <span className="reviews__user-name">{comment.user.name}</span>
       </div>
       <div className="reviews__info">
         <div className="reviews__rating rating">
@@ -26,15 +26,14 @@ function Review({ review }: { review: TReview }): JSX.Element {
           </div>
         </div>
         <p className="reviews__text">
-          {review.comment}
+          {comment.comment}
         </p>
-        <time className="reviews__time" dateTime={review.date}>
-          {formatDateToMonthYear(review.date)}
+        <time className="reviews__time" dateTime={comment.date}>
+          {formatDateToMonthYear(comment.date)}
         </time>
       </div>
     </li>
-
   );
 }
 
-export default Review;
+export default Comment;

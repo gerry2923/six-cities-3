@@ -11,7 +11,7 @@ const rating = [
 type TFeedbackChangeHandler = ReactEventHandler<HTMLInputElement | HTMLTextAreaElement>;
 
 
-function ReviewForm() {
+function CommentForm() {
 
   const [review, setReview] = useState({rating: 0, review: ''});
 
@@ -76,4 +76,4 @@ function ReviewForm() {
   );
 }
 
-export default ReviewForm;
+export default CommentForm;

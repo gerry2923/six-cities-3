@@ -1,21 +1,31 @@
-import { Fragment, useEffect, useState } from 'react';
+import { Fragment, useEffect } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { useParams } from 'react-router-dom';
 import Header from '../../components/header/header';
-import { TOffer, TReview } from '../../components/types';
-import { AutorizationStatus } from '../../components/const';
-import NotFound from '../../components/not-found/notFound';
-import Login from '../login-screen/login';
+import { TOffer } from '../../components/types';
+// import { AutorizationStatus } from '../../components/const';
+// import NotFound from '../../components/not-found/notFound';
+// import Login from '../login-screen/login';
 import Map from '../../components/map/map';
-import Reviews from '../../components/reviews/rerviews';
-import ReviewForm from '../../components/reviews/review-form';
+// import Reviews from '../../components/reviews/rerviews';
+// import ReviewForm from '../../components/reviews/review-form';
 import OfferList from '../../components/offer/offer-list';
-import { fetchNearBy, fetchOffer } from '../../store/offer/offer-slice-thunk';
+// import { fetchNearBy, fetchOffer } from '../../store/offer/offer-slice-thunk';
+import { useActionCreators, useAppSelector } from '../../store/hooks';
+import { offerActions, offerSelectors } from '../../store/offer/offer-slice';
+import Spinner from '../../components/spinner/spinner';
+import NotFound from '../../components/not-found/notFound';
+import { AutorizationStatus, RequestStatus } from '../../components/const';
+import { commentsActions, selectComments } from '../../store/comments/comments-slice';
+import { selectAuthorizationStatus } from '../../store/user/user-slice';
+import CommentForm from '../../components/comments/comment-form';
+import Comments from '../../components/comments/comments';
+import { useFavoriteClick } from '../../hooks/use-favorite-click';
 
 
-function Insides({offer} : {offer: TOffer}){
+function Insides({ offer }: { offer: TOffer }) {
 
-  if(!offer?.goods || offer.goods?.length === 0) {
+  if (!offer?.goods || offer.goods?.length === 0) {
     return null;
   }
 
@@ -67,50 +77,59 @@ function OfferImages({ offer }: { offer: TOffer | null }) {
   );
 }
 
-type TOfferScreen = {
-  offers: TOffer[];
-  reviews: TReview[];
-  autorizationStatus: AutorizationStatus;
-}
-
 
 // отрисуй offer
 // смотрим, авторизированный пользователь или нет + проверяем по id есть ли такое предложение или нет
-function OfferScreen():JSX.Element{
+function OfferScreen(): JSX.Element {
   const { id } = useParams();
-  const [activeOfferId, setActiveOfferId] = useState<string | null>(null);
+  const { fetchOffer, fetchNearBy, clear } = useActionCreators(offerActions);
+  const { fetchCommets } = useActionCreators(commentsActions);
+  // const { setActiveOfferId } = useActionCreators(uiActions);
 
+  const currentOffer = useAppSelector(offerSelectors.offer);
+  const nearbyOffers = useAppSelector(offerSelectors.nearbyOffers);
+  const status = useAppSelector(offerSelectors.offerStatus);
+  const comments = useAppSelector(selectComments);
+  const authorizationStatus = useAppSelector(selectAuthorizationStatus);
 
-  // eslint-disable-next-line no-console
-  const currentOffer: TOffer | undefined = offers.find((offer: TOffer) => offer.id === id?.trim().slice(1));
+  const isAuth = authorizationStatus === AutorizationStatus.Auth;
+
+  const handleClick = useFavoriteClick();
+  useEffect(() => {
+    if (!id) {
+      return;
+    }
+
+    fetchOffer(id);
+    fetchNearBy(id);
+    fetchCommets(id);
+
+    return () => {
+      clear();
+    };
+  }, [fetchOffer, fetchNearBy, id, clear, fetchCommets]);
+
+  if (!id) {
+    return <NotFound type={'page'} />;
+  }
+
+  if (status === RequestStatus.Loading || status === RequestStatus.Idle) {
+    return <Spinner />;
+  }
+
+  if (status === RequestStatus.Failed) {
+    return <NotFound type={'page'} />;
+  }
 
   if (!currentOffer) {
-    // фокус с типами
-    // return <NotFound type={offer}/>;
-    return <NotFound type='offer'/>;
+    return <NotFound type={'other'} />;
   }
 
-  const isAuth = autorizationStatus === AutorizationStatus.Auth;
+  const nearbyOffersForMap = [currentOffer, ...nearbyOffers.slice(0, 3)];
+  const rating = `${(currentOffer.rating * 100) / 5}%`;
 
-  if (!isAuth) {
-    return <Login />;
-  }
-
-  const rating = `${(currentOffer.rating * 100 / 5).toString()}%`;
-
-  // найти все отзывы для данного предложения
-  // const currentOfferReviews = reviews.filter((review) => review.offerId === currentOffer.id);
-  // const favoritesNumber = offers.filter((offer) => offer.isFavorite === true).length;
-  // const nearbyOffers = offers.filter((offer) => offer.city.name === currentOffer.city.name);
-  // const nearbyOffersToShow = nearbyOffers.length > 3 ? nearbyOffers.slice(0, 3) : nearbyOffers;
-
-  useEffect(() => {
-    Promise.all([fetchOffer(id as string), fetchNearBy(id as string), fetchComments(id as string)]);
-
-  },[fetchOffer, fetchNearBy, fetchComments, id]);
-
-  const handleActivOfferChange = (offer: TOffer | null): void => {
-    setActiveOfferId(offer?.id ?? null);
+  const handleFavoriteClick = () => {
+    handleClick(id , currentOffer.isFavorite);
   };
 
   return (
@@ -119,7 +138,7 @@ function OfferScreen():JSX.Element{
         <title>Предложение</title>
       </Helmet>
 
-      <Header userEmail={'oliver@mail.ru'} favoritesCount={favoritesNumber} />
+      <Header />
       <main className="page__main page__main--offer">
         <section className="offer">
           <div className="offer__gallery-container container">
@@ -135,7 +154,11 @@ function OfferScreen():JSX.Element{
                 <h1 className="offer__name">
                   {currentOffer.title}
                 </h1>
-                <button className="offer__bookmark-button button" type="button">
+                <button
+                  className="offer__bookmark-button button"
+                  type="button"
+                  onClick={handleFavoriteClick}
+                >
                   <svg className="offer__bookmark-icon" width={31} height={33}>
                     <use xlinkHref="#icon-bookmark" />
                   </svg>
@@ -190,19 +213,24 @@ function OfferScreen():JSX.Element{
                 </div>
               </div>
 
-
               <section className="offer__reviews reviews">
                 <h2 className="reviews__title">
-                  Reviews · <span className="reviews__amount">{currentOfferReviews.length}</span>
+                  Reviews · <span className="reviews__amount">{comments.length}</span>
                 </h2>
-                <Reviews reviews={currentOfferReviews}/>
-                {isAuth && <ReviewForm />}
+
+                <Comments comments={comments} />
+                {isAuth && <CommentForm />}
               </section>
+
             </div>
           </div>
 
-          <Map city={currentOffer.city} offers={nearbyOffersToShow} activeOfferId={activeOfferId} className={'offer__map'}/>
-          {/* <section className="offer__map map" /> */}
+          <Map
+            city={currentOffer.city}
+            offers={nearbyOffersForMap}
+            activeOfferId={id}
+            className={'offer__map'}
+          />
         </section>
 
         <div className="container">
@@ -210,7 +238,7 @@ function OfferScreen():JSX.Element{
             <h2 className="near-places__title">Other places in the neighbourhood</h2>
 
             <div className="near-places__list places__list">
-              <OfferList offers={nearbyOffersToShow} onActiveOfferChange={handleActivOfferChange} />
+              <OfferList offers={nearbyOffers} />
             </div>
           </section>
         </div>
