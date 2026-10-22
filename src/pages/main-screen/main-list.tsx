@@ -8,13 +8,16 @@ import { offersActions, selectOffersLoading } from '../../store/offers/offers-sl
 import { selectActiveCityLocation, selectSortedOffers, selectSortedOffersLength } from '../../store/offers/offers-selectors';
 import { selectActiveCity, selectActiveOfferId, selectSortType, uiActions } from '../../store/ui/ui-slice';
 import Spinner from '../../components/spinner/spinner';
+import { AutorizationStatus } from '../../components/const';
+import { selectAuthorizationStatus } from '../../store/user/user-slice';
+import { favoritesActions } from '../../store/favorites/favorites-slice';
 
 
 export function MainList(): JSX.Element {
 
   const dispatch = useAppDispatch();
   const { fetchAllOffers } = useActionCreators(offersActions);
-  const { setActiveOfferId, setSortType} = useActionCreators(uiActions);
+  const { setActiveOfferId, setSortType } = useActionCreators(uiActions);
   const sortedOffersLength = useAppSelector(selectSortedOffersLength);
   const isLoading = useAppSelector(selectOffersLoading);
   const activeCity = useAppSelector(selectActiveCity);
@@ -22,6 +25,8 @@ export function MainList(): JSX.Element {
   const sortedOffers = useAppSelector(selectSortedOffers);
   const activeOfferId = useAppSelector(selectActiveOfferId);
   const activeCityLocation = useAppSelector(selectActiveCityLocation);
+  const authorizationStatus = useAppSelector(selectAuthorizationStatus);
+  const { fetchFavorites } = useActionCreators(favoritesActions);
 
   // добавили загрузку предложений
   useEffect(() => {
@@ -37,6 +42,11 @@ export function MainList(): JSX.Element {
 
   }, [dispatch, fetchAllOffers, sortedOffersLength]);
 
+  useEffect(() => {
+    if (authorizationStatus === AutorizationStatus.Auth) {
+      fetchFavorites();
+    }
+  }, [authorizationStatus, fetchFavorites]);
 
   const handleActiveOfferChange = (offer: TOffer | null): void => {
     setActiveOfferId(offer?.id ?? null);
@@ -47,7 +57,7 @@ export function MainList(): JSX.Element {
 
   };
 
-  if(isLoading) {
+  if (isLoading) {
     return (<Spinner />);
   }
   return (

@@ -31,6 +31,7 @@ export const changeFavoriteStatus = createAppAsyncThunk<TOffer, TFavoriteInfo>(
 
     const status: TFavoriteStatus = isFavorite ? 0 : 1;
     try {
+      // console.log(`${APIRoute.Favorites}/${offerId}/${status}`);
       const { data } = await api.post<TOffer>(`${APIRoute.Favorites}/${offerId}/${status}`);
       return data;
     } catch (error) {

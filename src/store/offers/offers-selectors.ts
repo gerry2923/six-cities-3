@@ -1,12 +1,17 @@
 import { createSelector } from '@reduxjs/toolkit';
-import { selectAllOffers } from './offers-slice';
 import { selectActiveCity, selectSortType } from '../ui/ui-slice';
 import { SortType } from '../../components/const';
+import { selectOffersWithFavorites } from '../favorites/favorites-selectors';
 
 
 // возвращает массив предложений
+// export const selectOffersByCity = createSelector(
+//   [selectAllOffers, selectActiveCity],
+//   (offers, city) => offers.filter((offer) => offer.city.name === city)
+// );
+
 export const selectOffersByCity = createSelector(
-  [selectAllOffers, selectActiveCity],
+  [selectOffersWithFavorites, selectActiveCity],
   (offers, city) => offers.filter((offer) => offer.city.name === city)
 );
 

@@ -2,6 +2,7 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { RequestStatus } from '../../components/const';
 import { OfferId } from '../../components/types';
 import { changeFavoriteStatus, favoritesThunks, fetchFavorites} from './favorites-thunk';
+import { logout } from '../user/user-thunk';
 
 // будем сохранять не целый массив предложений, а только их id
 export interface FavoritesState {
@@ -59,12 +60,12 @@ export const favoritesSlice = createSlice({
 
         delete state.pendingIds[offerId];
 
-        // Сервер — источник истины. Приводим ids к тому, что он вернул.
         if (offer.isFavorite && !state.favoriteIds.includes(offer.id)) {
           state.favoriteIds.push(offer.id);
         } else if (!offer.isFavorite) {
           state.favoriteIds = state.favoriteIds.filter((id) => id !== offer.id);
         }
+
       })
       .addCase(changeFavoriteStatus.rejected, (state, action) => {
 
@@ -72,6 +73,10 @@ export const favoritesSlice = createSlice({
         // state.error = action.payload ?? 'Ошибка';
         state.error = 'error';
 
+      })
+      .addCase(logout.fulfilled, (state) => {
+        state.favoriteIds = [];
+        state.pendingIds = {};
       });
 
   },
