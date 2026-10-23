@@ -1,8 +1,8 @@
 import { TOffer } from '../../components/types';
 
 type TFavoritesByCity = {
-  city: string;
-  favoriteOffers: TOffer[];
+  cityName: string;
+  cityOffers: TOffer[];
 }
 
 export type { TFavoritesByCity };

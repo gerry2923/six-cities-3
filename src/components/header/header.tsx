@@ -4,10 +4,25 @@ import { useActionCreators, useAppSelector, useAuth } from '../../store/hooks';
 import Logo from '../logo/logo';
 import { AppRoute } from '../const';
 import { selectUser, userActions } from '../../store/user/user-slice';
+import { useEffect } from 'react';
+import { favoritesActions } from '../../store/favorites/favorites-slice';
+import { useSelector } from 'react-redux';
+import { selectFavoritesLength } from '../../store/favorites/favorites-selectors';
 
 function LoggedNav(): JSX.Element {
-  const user = useAppSelector(selectUser);
+  const { fetchFavorites } = useActionCreators(favoritesActions);
   const { logout } = useActionCreators(userActions);
+
+  const user = useAppSelector(selectUser);
+  const isAuth = useAuth();
+  const numberOfFavorites = useSelector(selectFavoritesLength);
+
+  useEffect(() => {
+    if (isAuth) {
+      fetchFavorites();
+    }
+  }, [isAuth, fetchFavorites]);
+
   // TODO: добавить подстчет избранного --> нужны все офферы с пользователем
   return (
     <>
@@ -20,7 +35,7 @@ function LoggedNav(): JSX.Element {
           <span className="header__user-name user__name">
             {user?.email}
           </span>
-          <span className="header__favorite-count">{555}</span>
+          <span className="header__favorite-count">{numberOfFavorites}</span>
         </Link>
       </li>
       <li className="header__nav-item">

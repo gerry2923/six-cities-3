@@ -12,7 +12,7 @@ export interface TCommentInfo {
 
 }
 
-const fetchCommets = createAppAsyncThunk<TComments, string>(
+const fetchComments = createAppAsyncThunk<TComments, string>(
   'comments/fetchComments',
   async (offerId, {extra: api}) => {
 
@@ -38,11 +38,11 @@ const postComment = createAppAsyncThunk<TComment, TCommentInfo>(
       );
       return data;
     } catch (error) {
-      return rejectWithValue('не удалось отправить комментарий');
+      return rejectWithValue('не удалось отправить комментарий!!**!!');
     }
 
   }
 );
 
 
-export const commentsThunks = {fetchCommets, postComment};
+export const commentsThunks = {fetchComments, postComment};

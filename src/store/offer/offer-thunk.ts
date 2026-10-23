@@ -8,6 +8,7 @@ export const fetchOffer = createAppAsyncThunk<TOffer, string>(
   'fetchOffer/offer',
   async (offerID, { extra: api }) => {
     const response = await api.get<TOffer>(`${AppRoute.Offer}/${offerID}`);
+    console.log('fetch offer');
     return response.data;
   }
 );

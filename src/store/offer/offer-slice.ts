@@ -1,7 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { RequestStatus } from '../../components/const';
 import { TOffer } from '../../components/types';
-import { fetchNearBy, fetchOffer } from './offer-slice-thunk';
+import { fetchNearBy, fetchOffer } from './offer-thunk';
 import { RootState } from '..';
 
 export interface OfferState {

@@ -7,11 +7,13 @@ import { RootState } from '..';
 export interface CommentsState {
   items: TComments;
   requestStatus: RequestStatus;
+  error: string;
 }
 
 const initialState: CommentsState = {
   items: [],
   requestStatus: RequestStatus.Idle,
+  error: '',
 };
 
 function processLoading(state: CommentsState){
@@ -20,6 +22,7 @@ function processLoading(state: CommentsState){
 
 function processFailed(state: CommentsState){
   state.requestStatus = RequestStatus.Failed;
+  state.error = 'ошибка загрузки';
 }
 
 function processSuccess(state: CommentsState, action:PayloadAction<TComments>){
@@ -36,18 +39,18 @@ export const commentsSlice = createSlice({
       state.requestStatus = RequestStatus.Idle;
     }
   },
-  extraReducers: (builder) =>{
+  extraReducers: (builder) => {
     builder
-      .addCase(commentsThunks.fetchCommets.fulfilled, processSuccess)
-      .addCase(commentsThunks.fetchCommets.pending, processLoading)
-      .addCase(commentsThunks.fetchCommets.rejected, processFailed)
+      .addCase(commentsThunks.fetchComments.fulfilled, processSuccess)
+      .addCase(commentsThunks.fetchComments.pending, processLoading)
+      .addCase(commentsThunks.fetchComments.rejected, processFailed)
 
-      .addCase(commentsThunks.postComment.pending, processLoading)
       .addCase(commentsThunks.postComment.fulfilled, (state: CommentsState, action: PayloadAction<TComment>) => {
-        state.requestStatus = RequestStatus.Success;
         state.items.push(action.payload);
       })
-      .addCase(commentsThunks.postComment.rejected, processFailed);
+      .addCase(commentsThunks.postComment.rejected, (state: CommentsState) => {
+        state.error = 'ошибка отправки';
+      });
   },
 });
 

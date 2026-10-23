@@ -33,6 +33,7 @@ export const changeFavoriteStatus = createAppAsyncThunk<TOffer, TFavoriteInfo>(
     try {
       // console.log(`${APIRoute.Favorites}/${offerId}/${status}`);
       const { data } = await api.post<TOffer>(`${APIRoute.Favorites}/${offerId}/${status}`);
+
       return data;
     } catch (error) {
       return rejectWithValue('не удалось изменить избранное значение');

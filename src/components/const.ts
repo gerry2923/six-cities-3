@@ -45,3 +45,5 @@ export const SortType = {
 
 
 export const ALL_CITIES_NAMES : string[] = ['Paris', 'Cologne', 'Brussels', 'Amsterdam', 'Humburg','Dusseldorf'] as const;
+export const MAX_COMMENTS = 10;
+export const MIN_COMMENT_LENGTH = 50;

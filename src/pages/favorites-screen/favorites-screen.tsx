@@ -1,39 +1,22 @@
 import { Helmet } from 'react-helmet-async';
 import Header from '../../components/header/header';
-import { TOffer } from '../../components/types';
 import Footer from '../../components/footer/footer';
 import Favorites from '../../components/favorites/favorites';
 import FavoritesEmpty from '../../components/favorites/favorites-empty';
-import { TFavoritesByCity } from './favorites-types';
-import { useAppSelector } from '../../store/hooks';
-import { selectUser } from '../../store/user/user-slice';
+import { useActionCreators, useAppSelector } from '../../store/hooks';
+import { selectFavoritesLength } from '../../store/favorites/favorites-selectors';
+import { useEffect } from 'react';
+import { favoritesActions } from '../../store/favorites/favorites-slice';
 
 
-function FavoritesScreen():JSX.Element {
-  //если нет ничего в favorites, то возвращаю экран favorEmpty, а если есть, то другой экран
+function FavoritesScreen(): JSX.Element {
 
+  const numberOfFavorites = useAppSelector(selectFavoritesLength);
+  const { fetchFavorites } = useActionCreators(favoritesActions);
 
-  console.log('favorites');
-
-  const user = useAppSelector(selectUser);
-  console.log(`${user?.name} ${user?.email} ${user?.avatarUrl} ${user?.isPro} ${user?.token}`);
-  // посчитать есть ли любимые. Если нет, то пустой экран, если есть, то отобразить
-  // const cityNames = new Set([...offers].map((offer) => offer.city.name));
-  // let favoritesCount = 0;
-  // const favoritesByCities: TFavoritesByCity [] = [];
-
-  // cityNames.forEach((cityName) => {
-  //   const favoriteCities = offers.filter((offer) => offer.city.name === cityName && offer.isFavorite);
-
-  //   if(favoriteCities.length !== 0) {
-  //     favoritesByCities.push({
-  //       city: cityName,
-  //       favoriteOffers: favoriteCities,
-  //     });
-  //   }
-
-  //   favoritesCount += favoriteCities.length;
-  // });
+  useEffect(() => {
+    fetchFavorites();
+  }, [fetchFavorites]);
 
   return (
     <>
@@ -45,11 +28,10 @@ function FavoritesScreen():JSX.Element {
 
       <Header />
       {
-        // favoritesByCities.length ?
-        //   <Favorites favorites={favoritesByCities} /> :
-        //   <FavoritesEmpty />
+        numberOfFavorites ?
+          <Favorites /> :
+          <FavoritesEmpty />
       }
-      <FavoritesEmpty />
       <Footer />
     </>
   );

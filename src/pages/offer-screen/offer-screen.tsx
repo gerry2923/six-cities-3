@@ -3,24 +3,21 @@ import { Helmet } from 'react-helmet-async';
 import { useParams } from 'react-router-dom';
 import Header from '../../components/header/header';
 import { TOffer } from '../../components/types';
-// import { AutorizationStatus } from '../../components/const';
-// import NotFound from '../../components/not-found/notFound';
-// import Login from '../login-screen/login';
 import Map from '../../components/map/map';
-// import Reviews from '../../components/reviews/rerviews';
-// import ReviewForm from '../../components/reviews/review-form';
 import OfferList from '../../components/offer/offer-list';
-// import { fetchNearBy, fetchOffer } from '../../store/offer/offer-slice-thunk';
-import { useActionCreators, useAppSelector } from '../../store/hooks';
+import { useActionCreators, useAppSelector, useAuth } from '../../store/hooks';
 import { offerActions, offerSelectors } from '../../store/offer/offer-slice';
 import Spinner from '../../components/spinner/spinner';
 import NotFound from '../../components/not-found/notFound';
-import { AutorizationStatus, RequestStatus } from '../../components/const';
-import { commentsActions, selectComments } from '../../store/comments/comments-slice';
-import { selectAuthorizationStatus } from '../../store/user/user-slice';
+import { RequestStatus } from '../../components/const';
+import { commentsActions } from '../../store/comments/comments-slice';
 import CommentForm from '../../components/comments/comment-form';
 import Comments from '../../components/comments/comments';
 import { useFavoriteClick } from '../../hooks/use-favorite-click';
+import { favoritesActions } from '../../store/favorites/favorites-slice';
+import { selectFavoritePendingIds } from '../../store/favorites/favorites-selectors';
+import { selectNearbyOffersWithFavorites, selectOfferWithFavorites } from '../../store/offer/offer-selectors';
+import { selectSortedCommentsByDate } from '../../store/comments/comments-selectors';
 
 
 function Insides({ offer }: { offer: TOffer }) {
@@ -83,31 +80,39 @@ function OfferImages({ offer }: { offer: TOffer | null }) {
 function OfferScreen(): JSX.Element {
   const { id } = useParams();
   const { fetchOffer, fetchNearBy, clear } = useActionCreators(offerActions);
-  const { fetchCommets } = useActionCreators(commentsActions);
-  // const { setActiveOfferId } = useActionCreators(uiActions);
+  const { fetchComments, clearComments } = useActionCreators(commentsActions);
+  const { fetchFavorites } = useActionCreators(favoritesActions);
 
-  const currentOffer = useAppSelector(offerSelectors.offer);
-  const nearbyOffers = useAppSelector(offerSelectors.nearbyOffers);
+  const currentOffer = useAppSelector(selectOfferWithFavorites);
+  const nearbyOffers = useAppSelector(selectNearbyOffersWithFavorites);
   const status = useAppSelector(offerSelectors.offerStatus);
-  const comments = useAppSelector(selectComments);
-  const authorizationStatus = useAppSelector(selectAuthorizationStatus);
+  const isAuth = useAuth();
 
-  const isAuth = authorizationStatus === AutorizationStatus.Auth;
+  const comments = useAppSelector(selectSortedCommentsByDate);
+  const pendingIds = useAppSelector(selectFavoritePendingIds);
 
   const handleClick = useFavoriteClick();
+
   useEffect(() => {
     if (!id) {
       return;
     }
 
+    clearComments();
     fetchOffer(id);
     fetchNearBy(id);
-    fetchCommets(id);
+    fetchComments(id);
 
     return () => {
       clear();
     };
-  }, [fetchOffer, fetchNearBy, id, clear, fetchCommets]);
+  }, [fetchOffer, fetchNearBy, id, clear, fetchComments, clearComments]);
+
+  useEffect(() => {
+    if (isAuth) {
+      fetchFavorites();
+    }
+  }, [isAuth, fetchFavorites]);
 
   if (!id) {
     return <NotFound type={'page'} />;
@@ -125,10 +130,17 @@ function OfferScreen(): JSX.Element {
     return <NotFound type={'other'} />;
   }
 
+  const isPending = Boolean(pendingIds[id]);
   const nearbyOffersForMap = [currentOffer, ...nearbyOffers.slice(0, 3)];
   const rating = `${(currentOffer.rating * 100) / 5}%`;
 
+  const favorite = currentOffer.isFavorite ?
+    'offer__bookmark-button--active' : '';
+
   const handleFavoriteClick = () => {
+    if(isPending) {
+      return;
+    }
     handleClick(id , currentOffer.isFavorite);
   };
 
@@ -155,9 +167,10 @@ function OfferScreen(): JSX.Element {
                   {currentOffer.title}
                 </h1>
                 <button
-                  className="offer__bookmark-button button"
+                  className={`offer__bookmark-button button ${favorite}`}
                   type="button"
                   onClick={handleFavoriteClick}
+                  disabled={isPending}
                 >
                   <svg className="offer__bookmark-icon" width={31} height={33}>
                     <use xlinkHref="#icon-bookmark" />

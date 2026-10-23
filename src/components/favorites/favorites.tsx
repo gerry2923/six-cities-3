@@ -1,8 +1,21 @@
+import { useSelector } from 'react-redux';
 import { TFavoritesByCity } from '../../pages/favorites-screen/favorites-types';
 import { TOffer } from '../types';
+import { selectFavoritesByCityName } from '../../store/favorites/favorites-selectors';
+import { useEffect } from 'react';
+import { useActionCreators, useAppSelector } from '../../store/hooks';
+import { favoritesActions, selectRequestStatus } from '../../store/favorites/favorites-slice';
+import Spinner from '../spinner/spinner';
+import { offersActions } from '../../store/offers/offers-slice';
+import { useFavoriteClick } from '../../hooks/use-favorite-click';
+import { AppRoute, RequestStatus } from '../const';
+import NotFound from '../not-found/notFound';
+import { Link } from 'react-router-dom';
 
 
-function FavoriteCard({offer}: {offer: TOffer}) {
+function FavoriteCard({ offer }: { offer: TOffer }) {
+  const handleСlick = useFavoriteClick();
+
   const premium = offer.isPremium && (
     <div className="place-card__mark">
       <span>Premium</span>
@@ -11,11 +24,15 @@ function FavoriteCard({offer}: {offer: TOffer}) {
 
   const rating = `${(offer.rating * 100 / 5).toString()}%`;
 
+  const handleFavoriteClick = () => {
+    handleСlick(offer.id, offer.isFavorite);
+  };
+
   return (
     <article className='favorites__card place-card'>
       {premium}
       <div className='favorites__image-wrapper place-card__image-wrapper'>
-        <a href='#'>
+        <Link to={`${AppRoute.Offer}/${offer.id}`}>
           <img
             className='place-card__image'
             src={offer.previewImage}
@@ -23,7 +40,7 @@ function FavoriteCard({offer}: {offer: TOffer}) {
             height={110}
             alt='Place image'
           />
-        </a>
+        </Link>
       </div>
       <div className='favorites__card-info place-card__info'>
         <div className='place-card__price-wrapper'>
@@ -34,6 +51,7 @@ function FavoriteCard({offer}: {offer: TOffer}) {
           <button
             className='place-card__bookmark-button place-card__bookmark-button--active button'
             type='button'
+            onClick={handleFavoriteClick}
           >
             <svg
               className='place-card__bookmark-icon'
@@ -52,7 +70,7 @@ function FavoriteCard({offer}: {offer: TOffer}) {
           </div>
         </div>
         <h2 className='place-card__name'>
-          <a href='#'>{offer.title}</a>
+          <Link to={`${AppRoute.Offer}/${offer.id}`}>{offer.title}</Link>
         </h2>
         <p className='place-card__type'>{offer.type}</p>
       </div>
@@ -62,7 +80,7 @@ function FavoriteCard({offer}: {offer: TOffer}) {
 
 
 function FavoriteCity({ cityFavorites }: { cityFavorites: TFavoritesByCity }): JSX.Element {
-  const { city: cityName, favoriteOffers } = cityFavorites;
+  const { cityName: cityName, cityOffers } = cityFavorites;
 
   return (
     <li className='favorites__locations-items'>
@@ -74,13 +92,32 @@ function FavoriteCity({ cityFavorites }: { cityFavorites: TFavoritesByCity }): J
         </div>
       </div>
       <div className='favorites__places'>
-        {favoriteOffers.map((offer) => <FavoriteCard key={offer.id} offer={offer} />)}
+        {cityOffers.map((offer) => <FavoriteCard key={offer.id} offer={offer} />)}
       </div>
     </li>
   );
 }
 
 function Favorites(): JSX.Element {
+  const { fetchFavorites } = useActionCreators(favoritesActions);
+  const favorites = useSelector(selectFavoritesByCityName);
+  const { fetchAllOffers} = useActionCreators(offersActions);
+  const status = useAppSelector(selectRequestStatus);
+
+
+  useEffect(() => {
+
+    fetchAllOffers();
+    fetchFavorites();
+  }, [fetchAllOffers, fetchFavorites]);
+
+  if (status === RequestStatus.Loading) {
+    return <Spinner />; // или null
+  }
+
+  if(status === RequestStatus.Failed) {
+    return <NotFound type='other'/>;
+  }
 
   return (
     <main className='page__main page__main--favorites'>
@@ -90,13 +127,13 @@ function Favorites(): JSX.Element {
           <ul className='favorites__list'>
 
             {
-              // favorites.map((favorite) =>
-              //   (
-              //     <FavoriteCity
-              //       key={favorite.city}
-              //       cityFavorites={favorite}
-              //     />
-              //   ))
+              favorites.map((favorite) =>
+                (
+                  <FavoriteCity
+                    key={favorite.cityName}
+                    cityFavorites={favorite}
+                  />
+                ))
             }
           </ul>
         </section>

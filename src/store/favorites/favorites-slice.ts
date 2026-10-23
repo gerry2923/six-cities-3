@@ -3,6 +3,7 @@ import { RequestStatus } from '../../components/const';
 import { OfferId } from '../../components/types';
 import { changeFavoriteStatus, favoritesThunks, fetchFavorites} from './favorites-thunk';
 import { logout } from '../user/user-thunk';
+import { RootState } from '..';
 
 // будем сохранять не целый массив предложений, а только их id
 export interface FavoritesState {
@@ -86,5 +87,8 @@ export const favoritesActions = {
   ...favoritesSlice.actions,
   ...favoritesThunks
 };
+
+export const selectRequestStatus = (state: RootState) => state.favorites.status;
+
 
 export default favoritesSlice.reducer;
